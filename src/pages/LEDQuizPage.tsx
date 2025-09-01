@@ -27,7 +27,7 @@ const LEDQuizPage = () => {
     try {
       localStorage.setItem("ledQuizAnswers", JSON.stringify(answers));
     } catch {}
-    navigate("/led-results");
+    setShowLeadGate(true);
   };
 
   const onLeadSubmitted = (l: LeadInfo) => {
