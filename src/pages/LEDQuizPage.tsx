@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import LEDQuiz from "@/components/LEDQuiz";
-import LeadGate from "@/components/LeadGate";
-import LEDResultsReport from "@/components/LEDResultsReport";
-import CalendarSection from "@/components/CalendarSection";
-import type { LEDQuizAnswers, LeadInfo } from "@/types/ledQuiz";
+import type { LEDQuizAnswers } from "@/types/ledQuiz";
 
 const LEDQuizPage = () => {
   const navigate = useNavigate();
@@ -20,33 +17,11 @@ const LEDQuizPage = () => {
     timeline: "",
   });
 
-  const [showLeadGate, setShowLeadGate] = useState(false);
-  const [lead, setLead] = useState<LeadInfo | null>(null);
-
   const onQuizComplete = () => {
     try {
       localStorage.setItem("ledQuizAnswers", JSON.stringify(answers));
     } catch {}
-    setShowLeadGate(true);
-  };
-
-  const onLeadSubmitted = (l: LeadInfo) => {
-    setLead(l);
-    window.setTimeout(() => document.querySelector("#results")?.scrollIntoView({ behavior: "smooth" }), 50);
-  };
-
-  const downloadReport = () => {
-    const content = `<!doctype html><html><head><meta charset='utf-8'><title>LED Upgrade Report - Electric Medic</title></head><body><h1>LED Upgrade Savings Report</h1><p>Professional LED upgrade analysis and recommendations from Electric Medic. Save for your records.</p><pre>${JSON.stringify({ answers, lead }, null, 2)}</pre></body></html>`;
-    const blob = new Blob([content], { type: "text/html" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "led-upgrade-report.html";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  };
-
-  const bookScroll = () => {
-    document.querySelector("#calendar")?.scrollIntoView({ behavior: "smooth" });
+    navigate("/led-lead");
   };
 
   const seoTitle = "LED Upgrade Savings Quiz | Electric Medic Columbus";
@@ -66,23 +41,6 @@ const LEDQuizPage = () => {
         />
       </section>
 
-      {showLeadGate && !lead && (
-        <div id="lead-gate">
-          <LeadGate onSubmitted={onLeadSubmitted} />
-        </div>
-      )}
-
-      {lead && (
-        <div id="results">
-          <LEDResultsReport answers={answers} onDownload={downloadReport} onBookScroll={bookScroll} />
-        </div>
-      )}
-
-      {lead && (
-        <div id="calendar">
-          <CalendarSection leadName={lead.name} />
-        </div>
-      )}
     </main>
   );
 };
