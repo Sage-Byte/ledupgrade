@@ -17,11 +17,11 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Brand palette - Premium Panel Upgrades */
-    --primary: 0 0% 10%;               /* near-black primary for Wattleads branding */
-    --primary-foreground: 210 40% 98%;
-    --primary-variant: 0 0% 7%;         /* darker for hover/gradient end */
-    --primary-glow: 0 0% 20%;           /* lighter for focus ring/shadow */
+    /* Brand palette - Electric Medic LED Services */
+    --primary: 271 91% 65%;             /* Electric Medic purple/violet */
+    --primary-foreground: 0 0% 100%;
+    --primary-variant: 271 91% 55%;     /* darker purple for hover */
+    --primary-glow: 271 91% 75%;        /* lighter purple for focus ring */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -29,7 +29,7 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 38 92% 50%;                /* #F59E0B amber */
+    --accent: 25 95% 53%;               /* Electric Medic orange */
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;

@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ThankYou from "./pages/ThankYou";
 import QuizPage from "./pages/QuizPage";
+import LEDQuizPage from "./pages/LEDQuizPage";
+import LEDLanding from "./pages/LEDLanding";
 import LeadForm from "./pages/LeadForm";
 import Loading from "./pages/Loading";
 import Results from "./pages/Results";
@@ -21,6 +23,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/led" element={<LEDLanding />} />
+          <Route path="/led-quiz" element={<LEDQuizPage />} />
           <Route path="/lead" element={<LeadForm />} />
           <Route path="/loading" element={<Loading />} />
           <Route path="/results" element={<Results />} />
