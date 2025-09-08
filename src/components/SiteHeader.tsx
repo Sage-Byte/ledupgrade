@@ -6,8 +6,8 @@ export default function SiteHeader() {
       <nav className="container flex items-center justify-center px-4 py-4" aria-label="Main">
         <a href="/" className="inline-flex items-center gap-2" aria-label="AtoZ Electrical Service home">
           <img
-            src="/lovable-uploads/6d370bf3-cf54-416a-b2ec-edd6f1fdb2f2.png"
-            alt="AtoZ Electrical Service logo"
+            src="/src/assets/electric-medic-logo.webp"
+            alt="Electric Medic logo"
             width="220"
             height="64"
             loading="eager"
