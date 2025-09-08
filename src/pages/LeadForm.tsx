@@ -15,9 +15,9 @@ const LeadForm = () => {
 
   return (
     <main>
-      <SEOHead title="Get Your Safety & Capacity Report" description="Enter your details to get your personalized panel report and claim $200 OFF." />
+      <SEOHead title="LED Upgrade Savings — Calculate Your Annual Savings" description="Enter your details to get your personalized LED upgrade savings report and discover how much you can save annually." />
       <section className="container px-4 py-10">
-        <h1 className="sr-only">Get Your Safety & Capacity Report</h1>
+        <h1 className="sr-only">LED Upgrade Savings — Calculate Your Annual Savings</h1>
         <div id="lead-gate">
           <LeadGate onSubmitted={handleSubmitted} />
         </div>
