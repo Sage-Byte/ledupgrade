@@ -12,25 +12,25 @@ export default function BottomCTA({ onCTAClick }: BottomCTAProps) {
       <div className="container px-4 py-12 sm:py-16 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
           <h2 id="cta-title" className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
-            Don’t Miss Out on Safer, Smarter Power Upgrades
+            Don't Miss Out on LED Upgrade Savings
           </h2>
           <p className="mt-3 text-base sm:text-lg md:text-xl/8 opacity-90">
-            Our 60-second Panel Check helps you make the right call. Start now and see if you qualify for $200 OFF.
+            Our 60-second LED Assessment helps you calculate your annual savings. Start now and discover your potential.
           </p>
 
           <div className="mt-8 flex justify-center">
             {onCTAClick ? (
               <Button size="lg" variant="hero" onClick={onCTAClick} className="px-6">
-                Start My Panel Check Now <ArrowRight className="ml-1" />
+                Start My LED Assessment Now <ArrowRight className="ml-1" />
               </Button>
             ) : (
               <Button asChild size="lg" variant="hero" className="px-6">
-                <Link to="/quiz">Start My Panel Check Now <ArrowRight className="ml-1" /></Link>
+                <Link to="/quiz">Start My LED Assessment Now <ArrowRight className="ml-1" /></Link>
               </Button>
             )}
           </div>
 
-          <p className="mt-4 text-sm/6 opacity-80">Join 1,500+ smart homeowners upgrading safely and confidently</p>
+          <p className="mt-4 text-sm/6 opacity-80">Join 1,500+ smart homeowners calculating their LED savings</p>
 
           <ul className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm/6 opacity-90">
             <li className="flex items-center justify-center gap-2"><Sun className="size-4" /> Panel Experts</li>

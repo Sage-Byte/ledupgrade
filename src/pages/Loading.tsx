@@ -52,7 +52,7 @@ const Loading = () => {
 
   return (
     <main>
-      <SEOHead title="EV Charger Installation — Get Your Custom Quote" description="We're preparing your personalized EV charger installation quote and recommendations." />
+      <SEOHead title="LED Upgrade Savings — Calculate Your Annual Savings" description="We're preparing your personalized LED upgrade savings report and calculating your annual savings." />
       <section className="container px-4 py-10">
         <div className="max-w-3xl mx-auto">
           <div className="rounded-2xl border bg-card shadow-sm p-6 sm:p-8">
@@ -61,8 +61,8 @@ const Loading = () => {
                 <Loader2 className="size-6 animate-spin" aria-hidden />
               </div>
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold leading-tight">Preparing Your EV Charger Quote</h1>
-                <p className="text-muted-foreground">Our experts are analyzing your installation requirements…</p>
+                <h1 className="text-2xl sm:text-3xl font-bold leading-tight">Calculating Your LED Upgrade Savings</h1>
+                <p className="text-muted-foreground">Our experts are analyzing your annual savings potential…</p>
               </div>
             </div>
 
