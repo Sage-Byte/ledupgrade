@@ -109,7 +109,7 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
           <span className="text-sm" aria-hidden>{progress}% Complete</span>
         </div>
         <div className="h-2 w-full rounded bg-muted">
-          <div className="h-2 rounded bg-accent" style={{ width: `${progress}%` }} />
+          <div className="h-2 rounded bg-primary" style={{ width: `${progress}%` }} />
         </div>
 
         {step === 2 && (
@@ -140,7 +140,7 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
               </div>
               <div className="mt-auto flex justify-between pt-4">
                 <Button variant="outline" onClick={prev}>Previous</Button>
-                <Button variant="accent" onClick={next}>Next</Button>
+                <Button onClick={next}>Next</Button>
               </div>
             </CardContent>
           </Card>
@@ -174,7 +174,7 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
               </div>
               <div className="mt-auto flex justify-between pt-4">
                 <Button variant="outline" onClick={prev}>Previous</Button>
-                <Button variant="accent" onClick={next}>Next</Button>
+                <Button onClick={next}>Next</Button>
               </div>
             </CardContent>
           </Card>
@@ -213,7 +213,7 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
               </div>
               <div className="mt-auto flex justify-between pt-4">
                 <Button variant="outline" onClick={prev}>Previous</Button>
-                <Button variant="accent" onClick={next}>Next</Button>
+                <Button onClick={next}>Next</Button>
               </div>
             </CardContent>
           </Card>
@@ -254,24 +254,9 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
                   onChange={(e) => setAnswers({ ...answers, sqFtDetail: e.target.value })}
                 />
               </div>
-              <div>
-                <label className="block text-sm mb-1">Optional: Upload a photo of current lighting</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  capture="environment"
-                  className="block w-full text-sm"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    const base64 = await fileToBase64(file);
-                    setAnswers({ ...answers, currentPhoto: base64 });
-                  }}
-                />
-              </div>
               <div className="mt-auto flex justify-between pt-4">
                 <Button variant="outline" onClick={prev}>Previous</Button>
-                <Button variant="accent" onClick={next}>Next</Button>
+                <Button onClick={next}>Next</Button>
               </div>
             </CardContent>
           </Card>
