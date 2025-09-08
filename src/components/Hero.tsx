@@ -34,9 +34,9 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
   const progress = Math.round((step / totalSteps) * 100);
 
   return (
-    <header className="relative overflow-hidden">
-      <div className="bg-hero-gradient">
-        <div className="container px-4 py-12 sm:py-16 md:py-20 text-primary-foreground">
+    <header className="relative overflow-hidden bg-white">
+      <div className="bg-white">
+        <div className="container px-4 py-12 sm:py-16 md:py-20 text-foreground">
           <div className="max-w-3xl mx-auto">
             <div className="flex justify-center mb-3">
               <span className="inline-flex items-center gap-2 rounded-full bg-success/15 text-success px-3 py-1 text-xs sm:text-sm">
@@ -105,7 +105,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
               {VALUE_CHIPS.map((chip) => (
                 <li
                   key={chip}
-                  className="rounded-full border border-white/20 bg-background/40 px-3 py-1 text-xs sm:text-sm"
+                  className="rounded-full border border-border bg-muted px-3 py-1 text-xs sm:text-sm text-foreground"
                 >
                   {chip}
                 </li>
