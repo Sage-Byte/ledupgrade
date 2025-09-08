@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
 const VALUE_CHIPS = [
-  "Cut electricity costs",
-  "Smart load management",
-  "EV-ready + future-proof",
-  "Permits and warranty handled",
+  "Cut energy bills by 80%",
+  "Professional LED installation",
+  "Licensed & certified electricians",
+  "Lifetime warranty included",
 ];
 
 export type AgeOption = "<10" | "10-20" | "20-30" | "30+ / not sure" | "";
@@ -40,14 +40,14 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
           <div className="max-w-3xl mx-auto">
             <div className="flex justify-center mb-3">
               <span className="inline-flex items-center gap-2 rounded-full bg-success/15 text-success px-3 py-1 text-xs sm:text-sm">
-                <span aria-hidden>✨</span> Smart Panel Savings Check
+                <span aria-hidden>✨</span> LED Savings Calculator
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center">
-              Smart Panel Savings Check — Estimate Your Annual Savings
+              LED Upgrade Savings — Calculate Your Annual Savings
             </h1>
             <p className="mt-3 text-base sm:text-lg md:text-xl text-center opacity-90">
-              Take our <strong>FREE 60‑second savings quiz</strong> to estimate how much a smart panel could save you each year — personalized to your home.
+              Take our <strong>FREE 60‑second LED quiz</strong> to calculate how much professional LED upgrades could save you each year — customized for your home.
             </p>
             <div className="mt-4 flex items-center justify-center gap-3 text-muted-foreground">
               <div className="flex gap-1 text-lg" aria-label="4.9 out of 5 stars">
@@ -60,13 +60,13 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
               className="mx-auto max-w-2xl rounded-2xl bg-card text-foreground shadow-lg border border-white/10 overflow-hidden focus:outline-none"
             >
               <div className="bg-success/15 text-success px-4 py-2 text-sm flex items-center justify-between">
-                <span>High-end homeowners cut bills and add capacity with smart panels</span>
+                <span>Columbus homeowners save $800+ annually with professional LED upgrades</span>
                 <span aria-hidden>→</span>
               </div>
               <div className="p-5 sm:p-7">
                 <fieldset>
-                  <legend className="text-2xl sm:text-3xl font-semibold text-center mb-2">🏠 Are you a homeowner?</legend>
-                  <p className="text-center text-muted-foreground mb-4">Panel upgrades are typically installed by property owners</p>
+                  <legend className="text-2xl sm:text-3xl font-semibold text-center mb-2">💡 Are you a homeowner?</legend>
+                  <p className="text-center text-muted-foreground mb-4">LED upgrades provide maximum value for property owners</p>
 
                   <div className="space-y-3">
                     <button

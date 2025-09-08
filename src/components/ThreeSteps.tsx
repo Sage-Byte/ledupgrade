@@ -9,21 +9,21 @@ interface ThreeStepsProps {
 const steps = [
   {
     num: "01",
-    title: "Claim Your Coupon",
+    title: "Take the LED Quiz",
     desc:
-      "Tap below to claim $200 OFF and start your free 60‑second Panel Check.",
+      "Complete our 60‑second quiz to calculate your LED savings and claim $200 OFF your upgrade.",
   },
   {
     num: "02",
-    title: "Personalized Quote",
+    title: "Free Consultation",
     desc:
-      "Share a few details and we’ll recommend the safest, EV‑ready options for your home.",
+      "Our licensed electricians provide a personalized LED upgrade plan for your home.",
   },
   {
     num: "03",
-    title: "Installation",
+    title: "Professional Installation",
     desc:
-      "Approve your quote and our licensed pros handle the upgrade—fast, clean, and code‑compliant.",
+      "Approve your quote and our certified team handles the LED installation—clean, fast, and guaranteed.",
   },
 ];
 
@@ -67,10 +67,10 @@ export default function ThreeSteps({ onCTAClick }: ThreeStepsProps) {
             size="lg"
             variant="hero"
             onClick={onCTAClick}
-            aria-label="Start your free panel check"
+            aria-label="Start your free LED quiz"
           >
             <ArrowRightCircle className="mr-2" />
-            Start Your FREE Panel Check
+            Start Your FREE LED Quiz
           </Button>
         </div>
       </div>

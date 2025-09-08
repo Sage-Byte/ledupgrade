@@ -2,46 +2,44 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Shield, Zap } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import heroPanel from "@/assets/hero-panel-upgrade.jpg";
-import garage from "@/assets/interior-ev-garage.jpg";
-import kitchen from "@/assets/kitchen-induction.jpg";
-import homeOffice from "@/assets/home-office.jpg";
+import ledLivingRoom from "@/assets/led-living-room.jpg";
+import ledKitchen from "@/assets/led-kitchen.jpg";
+import ledOutdoor from "@/assets/led-outdoor.jpg";
 
 const benefits = [
   {
-    title: "Safety & Code",
-    desc: "Reduce overheating and nuisance trips, and meet today’s NEC standards.",
-    icon: Shield,
-  },
-  {
-    title: "Capacity for What’s Next",
-    desc: "Add EV chargers, induction ranges, heat pumps, home office circuits—without juggling breakers.",
+    title: "Massive Energy Savings",
+    desc: "LED lighting uses 75% less energy and lasts 25x longer than traditional bulbs.",
     icon: Zap,
   },
   {
-    title: "Home Value & Insurance",
-    desc: "Modern electrical boosts appraisal confidence and may improve insurability.",
+    title: "Professional Installation",
+    desc: "Licensed electricians ensure perfect placement, dimming compatibility, and safety compliance.",
+    icon: Shield,
+  },
+  {
+    title: "Instant Home Value",
+    desc: "Modern LED lighting boosts curb appeal and property value with immediate visual impact.",
     icon: CheckCircle,
   },
 ];
 
-const panelImages = [
-  { src: heroPanel, alt: "Premium smart electrical panel upgrade" },
-  { src: garage, alt: "EV-ready garage subpanel and charging circuit" },
-  { src: kitchen, alt: "Induction-ready kitchen electrical upgrade" },
-  { src: homeOffice, alt: "Home office circuits on modern panel" },
+const ledImages = [
+  { src: ledLivingRoom, alt: "Modern LED living room lighting upgrade" },
+  { src: ledKitchen, alt: "Professional LED kitchen lighting installation" },
+  { src: ledOutdoor, alt: "Energy-efficient LED landscape and outdoor lighting" },
 ];
 
 const Benefits = () => {
   return (
     <section className="container px-4 py-12" aria-labelledby="benefits-heading">
       <div className="text-center mb-8">
-    <h2 id="benefits-heading" className="text-2xl sm:text-3xl font-bold">Why upgrade now?</h2>
+    <h2 id="benefits-heading" className="text-2xl sm:text-3xl font-bold">Why upgrade to LED now?</h2>
   </div>
   <div className="mb-8">
     <Carousel className="w-full">
       <CarouselContent>
-        {panelImages.map((img, idx) => (
+        {ledImages.map((img, idx) => (
           <CarouselItem key={idx} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-2">
               <AspectRatio ratio={16/9} className="overflow-hidden rounded-xl border bg-muted">
@@ -51,8 +49,8 @@ const Benefits = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious aria-label="Previous panel photo" />
-      <CarouselNext aria-label="Next panel photo" />
+      <CarouselPrevious aria-label="Previous LED photo" />
+      <CarouselNext aria-label="Next LED photo" />
     </Carousel>
   </div>
   <div className="grid md:grid-cols-3 gap-4">
@@ -74,7 +72,7 @@ const Benefits = () => {
       </div>
       <div className="mt-6 text-center">
         <span className="inline-block text-xs rounded-full bg-accent/15 text-accent-foreground px-3 py-1">
-          Complete the quiz today and claim $200 OFF your panel upgrade.
+          Complete the quiz today and claim $200 OFF your LED upgrade project.
         </span>
       </div>
     </section>

@@ -28,19 +28,19 @@ const Index = () => {
   const totalSteps = 6;
 
   const onStartQuiz = () => {
-    navigate("/quiz");
+    navigate("/led-quiz");
   };
 
   const onContinueFromHero = () => {
-    navigate("/quiz");
+    navigate("/led-quiz");
   };
 
 
 
 
 
-  const seoTitle = "Smart Panel Savings | Cut Electric Bills with Load Control";
-  const seoDesc = "Estimate your annual savings with a smart panel upgrade. Take our 60-second Savings Quiz and see how much you could save.";
+  const seoTitle = "LED Upgrade Savings | Cut Energy Bills 80% | Electric Medic Columbus";
+  const seoDesc = "Calculate your annual LED lighting savings with our free quiz. Professional LED installation in Columbus, Ohio. Save $800+ per year with certified electricians.";
 
   return (
     <main>
@@ -58,14 +58,14 @@ const Index = () => {
       
       <Benefits />
       <SocialProof />
-      <ThreeSteps onCTAClick={() => navigate("/quiz")} />
+      <ThreeSteps onCTAClick={() => navigate("/led-quiz")} />
       
 
 
 
 
 
-      <BottomCTA onCTAClick={() => navigate("/quiz")} />
+      <BottomCTA onCTAClick={() => navigate("/led-quiz")} />
       <SiteFooter />
 
       <MobileStickyCTA onClick={onContinueFromHero} />

@@ -13,12 +13,11 @@ export default function AssessmentCompare() {
             id="panel-mistake-heading"
             className="text-2xl sm:text-3xl font-bold tracking-tight"
           >
-            The $15,000 Mistake Most Homeowners Make
+            The $2,000 Mistake Most Homeowners Make
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Some electricians recommend full service replacements when a targeted
-            panel upgrade would do. Our 60‑second Panel Check clarifies what you
-            actually need.
+            Many DIY LED upgrades end up costing more than professional installation. 
+            Our LED Quiz shows you the smart way to upgrade your lighting.
           </p>
         </header>
 
@@ -33,19 +32,20 @@ export default function AssessmentCompare() {
             <CardContent>
               <ul className="space-y-3 text-destructive">
                 <li className="flex gap-2">
-                  <XCircle className="mt-0.5" /> Overpay $5,000–$15,000 on
-                  unnecessary work
+                  <XCircle className="mt-0.5" /> Buy wrong LED types and waste 
+                  $500–$2,000
                 </li>
                 <li className="flex gap-2">
-                  <XCircle className="mt-0.5" /> Miss warning signs: overheating,
-                  corrosion, recalled breakers
+                  <XCircle className="mt-0.5" /> Miss dimming compatibility and 
+                  electrical issues
                 </li>
                 <li className="flex gap-2">
-                  <XCircle className="mt-0.5" /> Get upsold without a proper load
-                  calculation
+                  <XCircle className="mt-0.5" /> Install without proper placement 
+                  planning
                 </li>
                 <li className="flex gap-2">
-                  <XCircle className="mt-0.5" /> Waste weeks collecting quotes
+                  <XCircle className="mt-0.5" /> No warranty on labor or 
+                  installation quality
                 </li>
               </ul>
             </CardContent>
@@ -61,20 +61,20 @@ export default function AssessmentCompare() {
             <CardContent>
               <ul className="space-y-3 text-accent-foreground">
                 <li className="flex gap-2">
-                  <CheckCircle className="mt-0.5" /> Know exactly what needs
-                  upgrading—and what doesn’t
+                  <CheckCircle className="mt-0.5" /> Get the right LEDs for each 
+                  room and fixture type
                 </li>
                 <li className="flex gap-2">
-                  <CheckCircle className="mt-0.5" /> Save $5,000–$10,000 by
-                  avoiding unnecessary work
+                  <CheckCircle className="mt-0.5" /> Save $500–$1,500 with 
+                  professional installation
                 </li>
                 <li className="flex gap-2">
-                  <CheckCircle className="mt-0.5" /> Get an EV‑ready,
-                  code‑compliant plan
+                  <CheckCircle className="mt-0.5" /> Perfect dimming, color 
+                  temperature, and placement
                 </li>
                 <li className="flex gap-2">
-                  <CheckCircle className="mt-0.5" /> Results in 60 seconds—no
-                  tech visit required
+                  <CheckCircle className="mt-0.5" /> Lifetime warranty on 
+                  installation and labor
                 </li>
               </ul>
             </CardContent>
