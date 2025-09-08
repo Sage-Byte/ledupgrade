@@ -33,7 +33,7 @@ export default function BottomCTA({ onCTAClick }: BottomCTAProps) {
           <p className="mt-4 text-sm/6 opacity-80">Join 1,500+ smart homeowners calculating their LED savings</p>
 
           <ul className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm/6 opacity-90">
-            <li className="flex items-center justify-center gap-2"><Sun className="size-4" /> Panel Experts</li>
+            <li className="flex items-center justify-center gap-2"><Sun className="size-4" /> LED Experts</li>
             <li className="flex items-center justify-center gap-2"><Zap className="size-4" /> Accurate Guidance</li>
             <li className="flex items-center justify-center gap-2"><Star className="size-4" /> 4.9/5 Rating</li>
             <li className="flex items-center justify-center gap-2"><CheckCircle2 className="size-4" /> 1,500+ Checks</li>

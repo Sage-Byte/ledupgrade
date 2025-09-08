@@ -7,6 +7,7 @@ const SiteFooter = () => {
           <a href="#quiz" className="hover:underline">Panel Check</a>
           <a href="#" className="hover:underline">Privacy</a>
           <a href="#" className="hover:underline">Terms</a>
+          <a href="https://mrelectricmedic.com" className="hover:underline">mrelectricmedic.com</a>
         </nav>
       </div>
     </footer>

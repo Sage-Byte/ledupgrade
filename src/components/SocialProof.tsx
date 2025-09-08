@@ -6,17 +6,17 @@ import officeImg from "@/assets/home-office.jpg";
 const testimonials = [
   {
     quote:
-      "No more breaker roulette. Our 200A upgrade let us install two EV chargers without a hitch.",
+      "Our LED upgrade saved us $480 per year. The brightness is incredible and our electric bill dropped by 40%.",
     author: "A. Morgan, Scottsdale",
   },
   {
     quote:
-      "Insurance inspection passed with ease, and the power is stable during heat waves.",
+      "Installation was seamless, and we're already seeing the savings after just two months.",
     author: "J. Patel, Austin",
   },
   {
     quote:
-      "We added an induction range and a backyard spa—no trips since.",
+      "Best investment we made—beautiful lighting and huge energy savings every month.",
     author: "K. Lee, San Jose",
   },
 ];
@@ -46,7 +46,7 @@ const SocialProof = () => {
   return (
     <section className="container px-4 py-12" aria-labelledby="proof-heading">
       <div className="text-center mb-8">
-        <h2 id="proof-heading" className="text-2xl sm:text-3xl font-bold">Results our panel clients rave about</h2>
+        <h2 id="proof-heading" className="text-2xl sm:text-3xl font-bold">LED Upgrade Savings — Calculate Your Annual Savings</h2>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
@@ -60,20 +60,6 @@ const SocialProof = () => {
         ))}
       </div>
 
-      <div className="mt-8 grid md:grid-cols-3 gap-4">
-        {cases.map((c) => (
-          <Card key={c.title}>
-            <CardHeader>
-              <CardTitle className="text-lg">{c.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <img src={c.img} alt={`${c.title} case study`} className="w-full h-auto rounded-md" loading="lazy" />
-              <p className="text-sm"><strong>Scope:</strong> {c.scope}</p>
-              <p className="text-sm"><strong>Outcome:</strong> {c.outcome}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
 
       <div className="mt-8 text-center">
         <p className="text-sm text-muted-foreground">Licensed • Insured • Permit & inspection included • Manufacturer warranty</p>
