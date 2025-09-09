@@ -23,6 +23,22 @@ const Results = () => {
       if (l) setLead(JSON.parse(l));
     } catch {}
   }, []);
+  
+  useEffect(() => {
+    // Load the GHL booking script
+    const script = document.createElement("script");
+    script.src = "https://link.wattleads.com/js/form_embed.js";
+    script.async = true;
+    script.type = "text/javascript";
+    document.body.appendChild(script);
+    
+    return () => {
+      // Remove script if component unmounts
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (answers == null) {
@@ -110,6 +126,18 @@ const Results = () => {
         </div>
       </section>
 
+      {lead && (
+        <section id="calendar" className="container px-4 py-8 mb-16">
+          <div className="max-w-4xl mx-auto">
+            <iframe 
+              src="https://link.wattleads.com/widget/booking/k7RqGxumfpwdIfSp4hYO" 
+              style={{width: "100%", height: "700px", border:"none", overflow: "hidden"}} 
+              scrolling="no" 
+              id="k7RqGxumfpwdIfSp4hYO_1757369186421"
+            />
+          </div>
+        </section>
+      )}
     </main>
   );
 };

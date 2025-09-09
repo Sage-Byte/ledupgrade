@@ -21,7 +21,24 @@ const LEDQuizPage = () => {
     try {
       localStorage.setItem("ledQuizAnswers", JSON.stringify(answers));
     } catch {}
-    navigate("/led-lead");
+    
+    // Create URL parameters from quiz answers
+    const params = new URLSearchParams();
+    
+    // Add each quiz answer as individual parameters (prefixed with quiz_)
+    if (answers.billRange) params.append("quiz_billRange", answers.billRange);
+    if (answers.currentLighting) params.append("quiz_currentLighting", answers.currentLighting);
+    if (answers.upgradeAreas && answers.upgradeAreas.length > 0) {
+      params.append("quiz_upgradeAreas", answers.upgradeAreas.join(", "));
+    }
+    if (answers.homeSize) params.append("quiz_homeSize", answers.homeSize);
+    if (answers.sqFtDetail) params.append("quiz_sqFtDetail", answers.sqFtDetail);
+    if (answers.zip) params.append("quiz_zip", answers.zip);
+    if (answers.timeline) params.append("quiz_timeline", answers.timeline);
+    
+    // Navigate with URL parameters
+    const paramString = params.toString();
+    navigate(paramString ? `/led-lead?${paramString}` : "/led-lead");
   };
 
   const seoTitle = "LED Upgrade Savings Quiz | Electric Medic Columbus";

@@ -80,23 +80,7 @@ const LEDResultsReport = ({ answers, onDownload, onBookScroll }: LEDResultsRepor
           </CardContent>
         </Card>
 
-        <Card className="bg-success/10 border-success/30">
-          <CardHeader>
-            <CardTitle className="text-success">What Happens Next</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">1</span><p>You'll receive a detailed LED savings report with fixture recommendations via text.</p></div>
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">2</span><p>Schedule your free in-home lighting assessment with our licensed electricians.</p></div>
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">3</span><p>Get your custom quote and start saving with professional LED installation.</p></div>
-          </CardContent>
-        </Card>
 
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button data-cta="book-call" variant="hero" onClick={onBookScroll}>Schedule Free Assessment</Button>
-            <Button variant="outline" onClick={onDownload}>Download Report (HTML)</Button>
-          </div>
-        </div>
       </div>
     </section>
   );

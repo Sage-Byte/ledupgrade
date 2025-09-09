@@ -60,16 +60,6 @@ const ResultsReport = ({ answers, onDownload, onBookScroll }: ResultsReportProps
           </CardContent>
         </Card>
 
-        <Card className="bg-success/10 border-success/30">
-          <CardHeader>
-            <CardTitle className="text-success">What Happens Next</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">1</span><p>You’ll receive a detailed savings report via text with exact calculations.</p></div>
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">2</span><p>Reply to confirm your free consultation to discuss your personalized plan.</p></div>
-            <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">3</span><p>Get your custom quote and start saving on your electricity bills.</p></div>
-          </CardContent>
-        </Card>
 
         <div className="text-center">
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
