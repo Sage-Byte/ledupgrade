@@ -32,18 +32,20 @@ const LEDQuizPage = () => {
     }
     
     // Add each quiz answer as individual parameters (prefixed with quiz_)
-    if (answers.billRange) params.append("quiz_billRange", answers.billRange);
-    if (answers.currentLighting) params.append("quiz_currentLighting", answers.currentLighting);
+    if (answers.billRange && answers.billRange !== "") params.append("quiz_billRange", answers.billRange);
+    if (answers.currentLighting && answers.currentLighting !== "") params.append("quiz_currentLighting", answers.currentLighting);
     if (answers.upgradeAreas && answers.upgradeAreas.length > 0) {
       params.append("quiz_upgradeAreas", answers.upgradeAreas.join(", "));
     }
-    if (answers.homeSize) params.append("quiz_homeSize", answers.homeSize);
-    if (answers.sqFtDetail) params.append("quiz_sqFtDetail", answers.sqFtDetail);
-    if (answers.zip) params.append("quiz_zip", answers.zip);
-    if (answers.timeline) params.append("quiz_timeline", answers.timeline);
+    if (answers.homeSize && answers.homeSize !== "") params.append("quiz_homeSize", answers.homeSize);
+    if (answers.sqFtDetail && answers.sqFtDetail !== "") params.append("quiz_sqFtDetail", answers.sqFtDetail);
+    if (answers.zip && answers.zip !== "") params.append("quiz_zip", answers.zip);
+    if (answers.timeline && answers.timeline !== "") params.append("quiz_timeline", answers.timeline);
     
     // Navigate with URL parameters
     const paramString = params.toString();
+    console.log('Generated URL parameters:', paramString);
+    console.log('Quiz answers:', answers);
     navigate(paramString ? `/led-lead?${paramString}` : "/led-lead");
   };
 

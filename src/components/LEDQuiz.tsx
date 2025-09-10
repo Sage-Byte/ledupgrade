@@ -97,7 +97,7 @@ const LEDQuiz = ({ answers, setAnswers, setStepGlobal, onQuizComplete }: LEDQuiz
     if (step < 6) setStep(step + 1);
     else onQuizComplete();
   };
-  const prev = () => setStep(Math.max(1, step - 1));
+  const prev = () => setStep(Math.max(2, step - 1));
 
   return (
     <section id="quiz" className="container px-4 pt-24 pb-12" aria-labelledby="quiz-heading">

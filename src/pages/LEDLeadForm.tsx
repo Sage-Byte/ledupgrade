@@ -81,17 +81,39 @@ const LEDLeadForm = () => {
       // Apply URL parameter passing fix for GHL after iframe loads
       setTimeout(() => {
         const iframe = document.querySelector('iframe[src*="wattleads.com"], iframe[src*="form.gohighlevel.com"], iframe[src*="app.gohighlevel.com"]') as HTMLIFrameElement;
-        if (!iframe) return;
+        if (!iframe) {
+          console.log('No iframe found');
+          return;
+        }
         const parentQS = window.location.search;
-        if (!parentQS) return;
+        if (!parentQS) {
+          console.log('No parent query string');
+          return;
+        }
+        
+        console.log('Parent query string:', parentQS);
+        console.log('Current iframe src:', iframe.src);
         
         // Check if parameters are already in the iframe src
         const currentSrc = iframe.src;
-        if (currentSrc.includes(parentQS.substring(1))) return; // Already has params
+        const paramsToAdd = parentQS.substring(1); // Remove the '?' from the beginning
+        
+        // Check if any of our parameters are already in the iframe src
+        const hasParams = paramsToAdd.split('&').some(param => {
+          const [key] = param.split('=');
+          return currentSrc.includes(key + '=');
+        });
+        
+        if (hasParams) {
+          console.log('Parameters already exist in iframe');
+          return; // Already has our params
+        }
         
         // Add parameters to iframe src
         const separator = currentSrc.includes('?') ? '&' : '?';
-        iframe.src = currentSrc + separator + parentQS.substring(1);
+        const newSrc = currentSrc + separator + paramsToAdd;
+        console.log('Setting iframe src to:', newSrc);
+        iframe.src = newSrc;
       }, 500); // Small delay to ensure iframe is ready
     };
 
