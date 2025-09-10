@@ -10,21 +10,27 @@ export function getUrlParameter(paramName: string): string | null {
 }
 
 // You'll need to replace this with your actual GHL API token
-const GHL_API_TOKEN = process.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
+const GHL_API_TOKEN = import.meta.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
 // You'll need to replace these with your actual location, pipeline and stage IDs
-const LOCATION_ID = process.env.VITE_GHL_LOCATION_ID || 'YOUR_LOCATION_ID';
-const PIPELINE_ID = process.env.VITE_GHL_PIPELINE_ID || 'YOUR_PIPELINE_ID';
-const PIPELINE_STAGE_ID = process.env.VITE_GHL_PIPELINE_STAGE_ID || 'YOUR_STAGE_ID'; // "New Lead 💡" stage
+const LOCATION_ID = import.meta.env.VITE_GHL_LOCATION_ID || 'YOUR_LOCATION_ID';
+const PIPELINE_ID = import.meta.env.VITE_GHL_PIPELINE_ID || 'YOUR_PIPELINE_ID';
+const PIPELINE_STAGE_ID = import.meta.env.VITE_GHL_PIPELINE_STAGE_ID || 'YOUR_STAGE_ID'; // "New Lead 💡" stage
 
 // Debug environment variables
-console.log('GHL API Debug Info:');
+console.log('=== GHL API Debug Info ===');
+console.log('All environment variables:', import.meta.env);
+console.log('VITE_GHL_API_TOKEN from import.meta.env:', import.meta.env.VITE_GHL_API_TOKEN);
+console.log('VITE_GHL_LOCATION_ID from import.meta.env:', import.meta.env.VITE_GHL_LOCATION_ID);
+console.log('VITE_GHL_PIPELINE_ID from import.meta.env:', import.meta.env.VITE_GHL_PIPELINE_ID);
+console.log('VITE_GHL_PIPELINE_STAGE_ID from import.meta.env:', import.meta.env.VITE_GHL_PIPELINE_STAGE_ID);
 console.log('API Token exists:', !!GHL_API_TOKEN);
 console.log('API Token length:', GHL_API_TOKEN?.length);
 console.log('API Token starts with:', GHL_API_TOKEN?.substring(0, 10) + '...');
 console.log('Location ID:', LOCATION_ID);
 console.log('Pipeline ID:', PIPELINE_ID);
 console.log('Pipeline Stage ID:', PIPELINE_STAGE_ID);
+console.log('=== End Debug Info ===');
 
 export interface GHLContactData {
   locationId: string;
