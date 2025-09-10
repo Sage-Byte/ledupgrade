@@ -15,7 +15,7 @@ const LEDLanding = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
       <SEOHead 
-        title="LED Upgrade Savings Calculator | Electric Medic Columbus" 
+        title="LED Lighting Solutions | Electric Medic Columbus" 
         description="Discover how much you can save with professional LED lighting upgrades. Get your free LED savings analysis from Electric Medic, Columbus's trusted electricians."
       />
       
