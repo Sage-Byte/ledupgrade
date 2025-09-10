@@ -3,6 +3,12 @@
 const GHL_API_BASE = 'https://services.leadconnectorhq.com';
 const GHL_API_VERSION = '2021-07-28';
 
+// Helper function to extract URL parameters
+export function getUrlParameter(paramName: string): string | null {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(paramName);
+}
+
 // You'll need to replace this with your actual GHL API token
 const GHL_API_TOKEN = process.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
@@ -111,13 +117,22 @@ export function createContactData(
     zip: string;
   },
   quizAnswers: any,
-  homeownerValue?: string
+  homeownerValue?: string,
+  adId?: string
 ): GHLContactData {
   const [firstName, ...lastNameParts] = formData.name.trim().split(' ');
   const lastName = lastNameParts.join(' ') || '';
 
   // Create custom fields for quiz answers
   const customFields: Array<{ id: string; value: string }> = [];
+
+  // Add ad_id from URL parameters
+  if (adId) {
+    customFields.push({
+      id: 'ad_id', // You'll need to create this custom field in GHL
+      value: adId
+    });
+  }
 
   // Add homeowner status
   if (homeownerValue) {

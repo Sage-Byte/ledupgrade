@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { upsertContact, createOpportunity, createContactData, createOpportunityData } from "@/utils/ghlApi";
+import { upsertContact, createOpportunity, createContactData, createOpportunityData, getUrlParameter } from "@/utils/ghlApi";
 import type { LeadInfo, LEDQuizAnswers } from "@/types/ledQuiz";
 
 const LEDLeadForm = () => {
@@ -38,6 +38,9 @@ const LEDLeadForm = () => {
     }
   }, [quizAnswers]);
 
+  // Check for ad_id parameter
+  const adId = useMemo(() => getUrlParameter('ad_id'), []);
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
@@ -49,9 +52,13 @@ const LEDLeadForm = () => {
     try {
       // Get homeowner value from localStorage
       const homeownerValue = localStorage.getItem("homeowner");
+      
+      // Get ad_id from URL parameters
+      const adId = getUrlParameter('ad_id');
+      console.log('Captured ad_id from URL:', adId);
 
       // Create contact data for GHL
-      const contactData = createContactData(formData, quizAnswers, homeownerValue || undefined);
+      const contactData = createContactData(formData, quizAnswers, homeownerValue || undefined, adId || undefined);
       
       // Create contact in GHL
       const contactResponse = await upsertContact(contactData);
@@ -105,6 +112,12 @@ const LEDLeadForm = () => {
             <p className="mt-3 text-lg text-muted-foreground">
               Enter your details to see your custom results and book a free consultation.
             </p>
+            {adId && (
+              <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800">
+                <span className="text-blue-600">📊</span>
+                <span>Ad ID: {adId}</span>
+              </div>
+            )}
           </div>
 
           <Card className="shadow-xl">
