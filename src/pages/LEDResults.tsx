@@ -1,15 +1,63 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import LEDResultsReport from "@/components/LEDResultsReport";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { scoreLEDQuiz } from "@/lib/ledQuizScoring";
 import type { LEDQuizAnswers, LeadInfo } from "@/types/ledQuiz";
 
 const LEDResults = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<LEDQuizAnswers | null>(null);
   const [lead, setLead] = useState<LeadInfo | null>(null);
+
+  // Calculate savings
+  const { score } = useMemo(() => answers ? scoreLEDQuiz(answers) : { score: 0 }, [answers]);
+  
+  const estimateSavings = (a: LEDQuizAnswers, s: number) => {
+    let base = 180; // Base LED savings per year
+    
+    // Bill multiplier - higher bills = more savings potential
+    const billMult: Record<string, number> = {
+      "Under $150": 0.8,
+      "$150–$250": 1,
+      "$250–$400": 1.3,
+      "$400–$600": 1.6,
+      "$600+": 2.0,
+    };
+    base *= billMult[a.billRange || ""] || 1;
+
+    // Current lighting multiplier - older tech = more savings
+    const lightingMult: Record<string, number> = {
+      "All LED": 0.3,
+      "Mostly LED": 0.6,
+      "Some LED": 1,
+      "CFL bulbs": 1.4,
+      "Traditional incandescent": 1.8,
+    };
+    base *= lightingMult[a.currentLighting || ""] || 1;
+
+    // Area-specific savings boosts
+    const areas = new Set(a.upgradeAreas || []);
+    base += (areas.has("Whole house") ? 400 : 0)
+      + (areas.has("Kitchen") ? 120 : 0)
+      + (areas.has("Living room") ? 100 : 0)
+      + (areas.has("Outdoor/landscape") ? 150 : 0)
+      + (areas.has("Commercial space") ? 300 : 0);
+
+    // Home size adjustments
+    if (a.homeSize === "2500-4000") base += 80;
+    if (a.homeSize === "4000+") base += 150;
+
+    // Score multiplier for overall optimization
+    const multiplier = 1 + s / 25;
+    const est = Math.round((base * multiplier) / 10) * 10;
+    
+    return Math.max(120, Math.min(est, 3500));
+  };
+
+  const savings = useMemo(() => answers ? estimateSavings(answers, score) : 0, [answers, score]);
 
   useEffect(() => {
     try {
@@ -70,6 +118,29 @@ const LEDResults = () => {
         description="Estimated annual savings and personalized recommendations for your LED lighting upgrade."
       />
 
+      {/* Savings Summary Section */}
+      {answers && (
+        <section className="container px-4 py-8">
+          <div className="max-w-2xl mx-auto">
+            <Card className="bg-green-50 border-green-200">
+              <CardContent className="p-8 text-center">
+                <h2 className="text-green-600 text-sm font-medium mb-2">Your LED Savings Potential</h2>
+                <div className="text-4xl font-bold text-gray-900 mb-3">
+                  Estimated Annual Savings: ${savings}
+                </div>
+                <p className="text-gray-600 text-sm mb-6">Based on your home's characteristics and energy usage</p>
+                <Button 
+                  onClick={bookScroll} 
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg"
+                >
+                  Schedule Consultation
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      )}
+
       <section className="container px-4 py-8">
         <h1 className="sr-only">Your LED Upgrade Savings Report</h1>
         {answers && (
@@ -78,38 +149,16 @@ const LEDResults = () => {
       </section>
 
       {lead && (
-        <>
-          <section className="container px-4 py-8 pb-8">
-            <div className="max-w-3xl mx-auto">
-              <Card className="bg-success/10 border-success/30">
-                <CardHeader>
-                  <CardTitle className="text-success">What Happens Next</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">1</span><p>You'll receive a detailed savings report via text with exact calculations.</p></div>
-                  <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">2</span><p>Reply to confirm your free consultation to discuss your personalized plan.</p></div>
-                  <div className="flex items-start gap-3"><span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-success text-success-foreground text-xs">3</span><p>Get your custom quote and start saving on your electricity bills.</p></div>
-                </CardContent>
-              </Card>
-              
-              <div className="text-center mt-8">
-                <Button data-cta="book-call" variant="hero" onClick={bookScroll} className="w-[250px]">Schedule Consultation</Button>
-                <Button variant="outline" onClick={downloadReport} className="mt-3 sm:mt-0 sm:ml-3">Download Report (HTML)</Button>
-              </div>
-            </div>
-          </section>
-          
-          <section id="calendar" className="container px-4 py-8 mb-16">
-            <div className="max-w-4xl mx-auto">
-              <iframe 
-                src="https://link.wattleads.com/widget/booking/k7RqGxumfpwdIfSp4hYO" 
-                style={{width: "100%", height: "700px", border:"none", overflow: "hidden"}} 
-                scrolling="no" 
-                id="k7RqGxumfpwdIfSp4hYO_1757369186421"
-              />
-            </div>
-          </section>
-        </>
+        <section id="calendar" className="container px-4 py-8 mb-16">
+          <div className="max-w-4xl mx-auto">
+            <iframe 
+              src="https://link.wattleads.com/widget/booking/k7RqGxumfpwdIfSp4hYO" 
+              style={{width: "100%", height: "700px", border:"none", overflow: "hidden"}} 
+              scrolling="no" 
+              id="k7RqGxumfpwdIfSp4hYO_1757369186421"
+            />
+          </div>
+        </section>
       )}
     </main>
   );
