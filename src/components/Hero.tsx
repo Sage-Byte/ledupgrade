@@ -23,6 +23,12 @@ interface HeroProps {
 const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroProps) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [homeowner, setHomeowner] = useState<"yes" | "no" | "">("");
+  
+  const handleHomeownerSelect = (value: "yes" | "no") => {
+    setHomeowner(value);
+    // Store in localStorage for later use
+    localStorage.setItem("homeowner", value);
+  };
 
   useEffect(() => {
     // Ensure focus ring is visible for accessibility when jumping to Q1
@@ -71,7 +77,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
                   <div className="space-y-3">
                     <button
                       type="button"
-                      onClick={() => setHomeowner('yes')}
+                      onClick={() => handleHomeownerSelect('yes')}
                       aria-pressed={homeowner==='yes'}
                       className={`w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${homeowner==='yes' ? 'border-accent bg-accent/10' : 'border-input bg-background hover:bg-accent/10'}`}
                     >
@@ -80,7 +86,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
                     </button>
                     <button
                       type="button"
-                      onClick={() => setHomeowner('no')}
+                      onClick={() => handleHomeownerSelect('no')}
                       aria-pressed={homeowner==='no'}
                       className={`w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${homeowner==='no' ? 'border-accent bg-accent/10' : 'border-input bg-background hover:bg-accent/10'}`}
                     >

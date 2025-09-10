@@ -25,6 +25,12 @@ const LEDQuizPage = () => {
     // Create URL parameters from quiz answers
     const params = new URLSearchParams();
     
+    // Add homeowner value from localStorage if available
+    const homeownerValue = localStorage.getItem("homeowner");
+    if (homeownerValue) {
+      params.append("homeowner", homeownerValue);
+    }
+    
     // Add each quiz answer as individual parameters (prefixed with quiz_)
     if (answers.billRange) params.append("quiz_billRange", answers.billRange);
     if (answers.currentLighting) params.append("quiz_currentLighting", answers.currentLighting);

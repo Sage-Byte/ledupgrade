@@ -77,6 +77,22 @@ const LEDLeadForm = () => {
     const handleIframeLoad = () => {
       clearTimeout(iframeLoadTimeout);
       setIsLoading(false);
+      
+      // Apply URL parameter passing fix for GHL after iframe loads
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe[src*="wattleads.com"], iframe[src*="form.gohighlevel.com"], iframe[src*="app.gohighlevel.com"]') as HTMLIFrameElement;
+        if (!iframe) return;
+        const parentQS = window.location.search;
+        if (!parentQS) return;
+        
+        // Check if parameters are already in the iframe src
+        const currentSrc = iframe.src;
+        if (currentSrc.includes(parentQS.substring(1))) return; // Already has params
+        
+        // Add parameters to iframe src
+        const separator = currentSrc.includes('?') ? '&' : '?';
+        iframe.src = currentSrc + separator + parentQS.substring(1);
+      }, 500); // Small delay to ensure iframe is ready
     };
 
     // Fallback to hide loading after 5 seconds even if iframe doesn't fire load event

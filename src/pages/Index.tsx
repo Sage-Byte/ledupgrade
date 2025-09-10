@@ -32,7 +32,13 @@ const Index = () => {
   };
 
   const onContinueFromHero = () => {
-    navigate("/led-quiz");
+    // Store homeowner value if available
+    const homeownerValue = localStorage.getItem("homeowner");
+    if (homeownerValue) {
+      navigate(`/led-quiz?homeowner=${homeownerValue}`);
+    } else {
+      navigate("/led-quiz");
+    }
   };
 
 
