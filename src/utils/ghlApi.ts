@@ -12,11 +12,13 @@ export function getUrlParameter(paramName: string): string | null {
 // You'll need to replace this with your actual GHL API token
 const GHL_API_TOKEN = process.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
-// You'll need to replace these with your actual pipeline and stage IDs
+// You'll need to replace these with your actual location, pipeline and stage IDs
+const LOCATION_ID = process.env.VITE_GHL_LOCATION_ID || 'YOUR_LOCATION_ID';
 const PIPELINE_ID = process.env.VITE_GHL_PIPELINE_ID || 'YOUR_PIPELINE_ID';
-const STAGE_ID = process.env.VITE_GHL_STAGE_ID || 'YOUR_STAGE_ID'; // "New Lead 💡" stage
+const PIPELINE_STAGE_ID = process.env.VITE_GHL_PIPELINE_STAGE_ID || 'YOUR_STAGE_ID'; // "New Lead 💡" stage
 
 export interface GHLContactData {
+  locationId: string;
   firstName: string;
   lastName?: string;
   email: string;
@@ -36,12 +38,12 @@ export interface GHLContactData {
 }
 
 export interface GHLOpportunityData {
-  name: string;
+  locationId: string;
   pipelineId: string;
-  stageId: string;
+  pipelineStageId: string;
   contactId: string;
+  name: string;
   status: string;
-  monetaryValue: number;
 }
 
 export interface GHLContactResponse {
@@ -60,10 +62,9 @@ export interface GHLOpportunityResponse {
     id: string;
     name: string;
     pipelineId: string;
-    stageId: string;
+    pipelineStageId: string;
     contactId: string;
     status: string;
-    monetaryValue: number;
     // ... other opportunity fields
   };
 }
@@ -96,6 +97,7 @@ export async function createOpportunity(opportunityData: GHLOpportunityData): Pr
       'Authorization': `Bearer ${GHL_API_TOKEN}`,
       'Version': GHL_API_VERSION,
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
     body: JSON.stringify(opportunityData),
   });
@@ -183,6 +185,7 @@ export function createContactData(
   }
 
   return {
+    locationId: LOCATION_ID,
     firstName,
     lastName,
     email: formData.email,
@@ -201,11 +204,11 @@ export function createOpportunityData(
   contactName: string
 ): GHLOpportunityData {
   return {
-    name: `${contactName} - LED Savings Lead`,
+    locationId: LOCATION_ID,
     pipelineId: PIPELINE_ID,
-    stageId: STAGE_ID,
+    pipelineStageId: PIPELINE_STAGE_ID,
     contactId,
+    name: `${contactName} - LED Savings Lead`,
     status: 'open',
-    monetaryValue: 0,
   };
 }
