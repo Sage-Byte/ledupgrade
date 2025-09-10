@@ -3,6 +3,7 @@ import evImg from "@/assets/interior-ev-garage.jpg";
 import kitchenImg from "@/assets/kitchen-induction.jpg";
 import officeImg from "@/assets/home-office.jpg";
 import { Button } from "@/components/ui/button";
+import SEOHead from "@/components/SEOHead";
 
 const ThankYou = () => {
   const params = new URLSearchParams(window.location.search);
@@ -17,6 +18,10 @@ const ThankYou = () => {
 
   return (
     <main className="max-w-2xl mx-auto">
+      <SEOHead 
+        title="Thank You | LED Lighting Solutions | Electric Medic Columbus" 
+        description="Your consultation is confirmed! We're excited to help you with your LED lighting upgrade installation."
+      />
       <section className="px-4 py-12 text-center">
         <h1 className="text-3xl sm:text-5xl font-extrabold text-purple-600">Thank you!</h1>
         <p className="mt-2 text-muted-foreground text-lg">Your phone consultation is booked.</p>
