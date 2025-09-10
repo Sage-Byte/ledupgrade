@@ -17,6 +17,15 @@ const LOCATION_ID = process.env.VITE_GHL_LOCATION_ID || 'YOUR_LOCATION_ID';
 const PIPELINE_ID = process.env.VITE_GHL_PIPELINE_ID || 'YOUR_PIPELINE_ID';
 const PIPELINE_STAGE_ID = process.env.VITE_GHL_PIPELINE_STAGE_ID || 'YOUR_STAGE_ID'; // "New Lead 💡" stage
 
+// Debug environment variables
+console.log('GHL API Debug Info:');
+console.log('API Token exists:', !!GHL_API_TOKEN);
+console.log('API Token length:', GHL_API_TOKEN?.length);
+console.log('API Token starts with:', GHL_API_TOKEN?.substring(0, 10) + '...');
+console.log('Location ID:', LOCATION_ID);
+console.log('Pipeline ID:', PIPELINE_ID);
+console.log('Pipeline Stage ID:', PIPELINE_STAGE_ID);
+
 export interface GHLContactData {
   locationId: string;
   firstName: string;
@@ -71,6 +80,9 @@ export interface GHLOpportunityResponse {
 
 // Create or update a contact in GHL
 export async function upsertContact(contactData: GHLContactData): Promise<GHLContactResponse> {
+  console.log('Making GHL Contact API call with data:', contactData);
+  console.log('Using API Token:', GHL_API_TOKEN?.substring(0, 10) + '...');
+  
   const response = await fetch(`${GHL_API_BASE}/contacts/upsert`, {
     method: 'POST',
     headers: {
@@ -81,16 +93,34 @@ export async function upsertContact(contactData: GHLContactData): Promise<GHLCon
     body: JSON.stringify(contactData),
   });
 
+  console.log('GHL Contact API Response Status:', response.status);
+  console.log('GHL Contact API Response Headers:', Object.fromEntries(response.headers.entries()));
+
   if (!response.ok) {
     const errorText = await response.text();
+    console.error('GHL Contact API Error Details:', {
+      status: response.status,
+      statusText: response.statusText,
+      errorText: errorText,
+      url: `${GHL_API_BASE}/contacts/upsert`,
+      headers: {
+        'Authorization': `Bearer ${GHL_API_TOKEN?.substring(0, 10)}...`,
+        'Version': GHL_API_VERSION,
+        'Content-Type': 'application/json',
+      }
+    });
     throw new Error(`GHL Contact API Error: ${response.status} - ${errorText}`);
   }
 
-  return response.json();
+  const result = await response.json();
+  console.log('GHL Contact API Success:', result);
+  return result;
 }
 
 // Create an opportunity in GHL
 export async function createOpportunity(opportunityData: GHLOpportunityData): Promise<GHLOpportunityResponse> {
+  console.log('Making GHL Opportunity API call with data:', opportunityData);
+  
   const response = await fetch(`${GHL_API_BASE}/opportunities/`, {
     method: 'POST',
     headers: {
@@ -102,12 +132,22 @@ export async function createOpportunity(opportunityData: GHLOpportunityData): Pr
     body: JSON.stringify(opportunityData),
   });
 
+  console.log('GHL Opportunity API Response Status:', response.status);
+
   if (!response.ok) {
     const errorText = await response.text();
+    console.error('GHL Opportunity API Error Details:', {
+      status: response.status,
+      statusText: response.statusText,
+      errorText: errorText,
+      url: `${GHL_API_BASE}/opportunities/`,
+    });
     throw new Error(`GHL Opportunity API Error: ${response.status} - ${errorText}`);
   }
 
-  return response.json();
+  const result = await response.json();
+  console.log('GHL Opportunity API Success:', result);
+  return result;
 }
 
 // Helper function to create contact data from form and quiz answers
