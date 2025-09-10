@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { upsertContact, createOpportunity, createContactData, createOpportunityData } from "@/utils/ghlApi";
 import type { LeadInfo, LEDQuizAnswers } from "@/types/ledQuiz";
 
 const LEDLeadForm = () => {
@@ -46,7 +47,21 @@ const LEDLeadForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Create lead object from form data
+      // Get homeowner value from localStorage
+      const homeownerValue = localStorage.getItem("homeowner");
+
+      // Create contact data for GHL
+      const contactData = createContactData(formData, quizAnswers, homeownerValue || undefined);
+      
+      // Create contact in GHL
+      const contactResponse = await upsertContact(contactData);
+      const contactId = contactResponse.contact.id;
+
+      // Create opportunity in GHL
+      const opportunityData = createOpportunityData(contactId, formData.name);
+      await createOpportunity(opportunityData);
+
+      // Create lead object from form data for local storage
       const lead: LeadInfo = {
         name: formData.name,
         email: formData.email,
@@ -67,9 +82,11 @@ const LEDLeadForm = () => {
       }
 
       // Navigate to results
-      navigate("/led-results");
+    navigate("/led-results");
     } catch (error) {
       console.error('Form submission error:', error);
+      // You might want to show an error message to the user here
+      alert('There was an error submitting your form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
