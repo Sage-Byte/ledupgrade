@@ -45,7 +45,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
         <div className="container px-4 py-0 text-foreground">
           <div className="max-w-3xl mx-auto">
             <div className="flex justify-center mb-0 mt-0">
-              <span className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-lg font-semibold shadow-lg" style={{backgroundColor: '#e2f6ec', color: '#000000'}}>
+              <span className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-base font-medium shadow-md" style={{backgroundColor: '#e2f6ec', color: '#000000'}}>
                 <span aria-hidden>✨</span> LED Savings Calculator
               </span>
             </div>
