@@ -188,6 +188,60 @@ function updateFieldIds(quizFields: any[], potentialFields: any[]) {
   }
 }
 
+// Global function to manually fetch field IDs - call this from browser console
+(window as any).fetchFieldIds = async function() {
+  const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
+  
+  try {
+    const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${GHL_API_TOKEN}`,
+        'Version': '2021-07-28',
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('=== ALL CUSTOM FIELDS ===');
+    console.log(data);
+    
+    if (data.customFields) {
+      console.log('\n=== QUIZ FIELDS ===');
+      const quizFields = data.customFields.filter((field: any) => 
+        field.name && field.name.toLowerCase().includes('quiz')
+      );
+      
+      quizFields.forEach((field: any) => {
+        console.log(`${field.name}: ${field.id}`);
+      });
+      
+      console.log('\n=== POTENTIAL QUIZ FIELDS ===');
+      const potentialFields = data.customFields.filter((field: any) => {
+        const name = field.name.toLowerCase();
+        return name.includes('bill') || 
+               name.includes('lighting') || 
+               name.includes('upgrade') || 
+               name.includes('home') || 
+               name.includes('size') || 
+               name.includes('timeline') ||
+               name.includes('zip');
+      });
+      
+      potentialFields.forEach((field: any) => {
+        console.log(`${field.name}: ${field.id}`);
+      });
+    }
+    
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 // You'll need to replace this with your actual GHL API token
 const GHL_API_TOKEN = import.meta.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
