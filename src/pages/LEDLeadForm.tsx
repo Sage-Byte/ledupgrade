@@ -57,8 +57,8 @@ const LEDLeadForm = () => {
       const adId = getUrlParameter('ad_id');
       console.log('Captured ad_id from URL:', adId);
 
-      // Create contact data for GHL
-      const contactData = createContactData(formData, quizAnswers, homeownerValue || undefined, adId || undefined);
+      // Create contact data for GHL (now async)
+      const contactData = await createContactData(formData, quizAnswers, homeownerValue || undefined, adId || undefined);
       
       // Create contact in GHL
       const contactResponse = await upsertContact(contactData);

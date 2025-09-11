@@ -188,6 +188,84 @@ function updateFieldIds(quizFields: any[], potentialFields: any[]) {
   }
 }
 
+// Function to fetch field IDs from GHL and return mapping
+async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
+  const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
+  
+  try {
+    const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${GHL_API_TOKEN}`,
+        'Version': '2021-07-28',
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('=== FETCHING FIELD IDs FROM GHL ===');
+    console.log('All Custom Fields:', data);
+    
+    const fieldMapping: { [key: string]: string } = {};
+    
+    if (data.customFields) {
+      // Look for quiz fields
+      const quizFields = data.customFields.filter((field: any) => 
+        field.name && field.name.toLowerCase().includes('quiz')
+      );
+      
+      console.log('Quiz fields found:', quizFields);
+      
+      // Map quiz fields
+      quizFields.forEach((field: any) => {
+        const name = field.name.toLowerCase();
+        if (name.includes('bill')) fieldMapping['billRange'] = field.id;
+        if (name.includes('lighting')) fieldMapping['currentLighting'] = field.id;
+        if (name.includes('upgrade')) fieldMapping['upgradeAreas'] = field.id;
+        if (name.includes('home') && name.includes('size')) fieldMapping['homeSize'] = field.id;
+        if (name.includes('timeline')) fieldMapping['timeline'] = field.id;
+        if (name.includes('zip')) fieldMapping['zip'] = field.id;
+      });
+      
+      // Also look for potential fields
+      const potentialFields = data.customFields.filter((field: any) => {
+        const name = field.name.toLowerCase();
+        return name.includes('bill') || 
+               name.includes('lighting') || 
+               name.includes('upgrade') || 
+               name.includes('home') || 
+               name.includes('size') || 
+               name.includes('timeline') ||
+               name.includes('zip');
+      });
+      
+      console.log('Potential fields found:', potentialFields);
+      
+      // Map potential fields
+      potentialFields.forEach((field: any) => {
+        const name = field.name.toLowerCase();
+        if (name.includes('bill') && !fieldMapping['billRange']) fieldMapping['billRange'] = field.id;
+        if (name.includes('lighting') && !fieldMapping['currentLighting']) fieldMapping['currentLighting'] = field.id;
+        if (name.includes('upgrade') && !fieldMapping['upgradeAreas']) fieldMapping['upgradeAreas'] = field.id;
+        if (name.includes('home') && name.includes('size') && !fieldMapping['homeSize']) fieldMapping['homeSize'] = field.id;
+        if (name.includes('timeline') && !fieldMapping['timeline']) fieldMapping['timeline'] = field.id;
+        if (name.includes('zip') && !fieldMapping['zip']) fieldMapping['zip'] = field.id;
+      });
+    }
+    
+    console.log('Field mapping created:', fieldMapping);
+    return fieldMapping;
+    
+  } catch (error) {
+    console.error('Error fetching field IDs:', error);
+    return {};
+  }
+}
+
 // Global function to manually fetch field IDs - call this from browser console
 (window as any).fetchFieldIds = async function() {
   const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
@@ -390,7 +468,7 @@ export async function createOpportunity(opportunityData: GHLOpportunityData): Pr
 }
 
 // Helper function to create contact data from form and quiz answers
-export function createContactData(
+export async function createContactData(
   formData: {
     name: string;
     email: string;
@@ -400,7 +478,7 @@ export function createContactData(
   quizAnswers: any,
   homeownerValue?: string,
   adId?: string
-): GHLContactData {
+): Promise<GHLContactData> {
   console.log('=== createContactData Debug ===');
   console.log('formData:', formData);
   console.log('quizAnswers:', quizAnswers);
@@ -409,6 +487,11 @@ export function createContactData(
   
   const [firstName, ...lastNameParts] = formData.name.trim().split(' ');
   const lastName = lastNameParts.join(' ') || '';
+
+  // Fetch field IDs from GHL
+  console.log('=== FETCHING FIELD IDs FROM GHL ===');
+  const fieldIds = await fetchFieldIdsFromGHL();
+  console.log('Field IDs fetched:', fieldIds);
 
   // Create custom fields for quiz answers
   const customFields: Array<{ id: string; value: string }> = [];
@@ -429,9 +512,9 @@ export function createContactData(
     });
   }
 
-  // Add quiz answers as custom fields
+  // Add quiz answers as custom fields using fetched field IDs
   if (quizAnswers) {
-    console.log('=== Processing Quiz Answers ===');
+    console.log('=== Processing Quiz Answers with Field IDs ===');
     console.log('quizAnswers.billRange:', quizAnswers.billRange, 'type:', typeof quizAnswers.billRange);
     console.log('quizAnswers.currentLighting:', quizAnswers.currentLighting, 'type:', typeof quizAnswers.currentLighting);
     console.log('quizAnswers.upgradeAreas:', quizAnswers.upgradeAreas, 'type:', typeof quizAnswers.upgradeAreas);
@@ -441,51 +524,58 @@ export function createContactData(
     console.log('quizAnswers.zip:', quizAnswers.zip, 'type:', typeof quizAnswers.zip);
     
     if (quizAnswers.billRange && quizAnswers.billRange.trim() !== '') {
-      console.log('Adding quiz_billRange:', quizAnswers.billRange);
+      const fieldId = fieldIds.billRange || 'quiz_billRange';
+      console.log('Adding quiz_billRange:', quizAnswers.billRange, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_billRange', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.billRange
       });
     }
     if (quizAnswers.currentLighting && quizAnswers.currentLighting.trim() !== '') {
-      console.log('Adding quiz_currentLighting:', quizAnswers.currentLighting);
+      const fieldId = fieldIds.currentLighting || 'quiz_currentLighting';
+      console.log('Adding quiz_currentLighting:', quizAnswers.currentLighting, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_currentLighting', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.currentLighting
       });
     }
     if (quizAnswers.upgradeAreas && Array.isArray(quizAnswers.upgradeAreas) && quizAnswers.upgradeAreas.length > 0) {
-      console.log('Adding quiz_upgradeAreas:', quizAnswers.upgradeAreas);
+      const fieldId = fieldIds.upgradeAreas || 'quiz_upgradeAreas';
+      console.log('Adding quiz_upgradeAreas:', quizAnswers.upgradeAreas, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_upgradeAreas', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.upgradeAreas.join(', ')
       });
     }
     if (quizAnswers.homeSize && quizAnswers.homeSize.trim() !== '') {
-      console.log('Adding quiz_homeSize:', quizAnswers.homeSize);
+      const fieldId = fieldIds.homeSize || 'quiz_homeSize';
+      console.log('Adding quiz_homeSize:', quizAnswers.homeSize, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_homeSize', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.homeSize
       });
     }
     if (quizAnswers.sqFtDetail && quizAnswers.sqFtDetail.trim() !== '') {
-      console.log('Adding quiz_sqFtDetail:', quizAnswers.sqFtDetail);
+      const fieldId = fieldIds.sqFtDetail || 'quiz_sqFtDetail';
+      console.log('Adding quiz_sqFtDetail:', quizAnswers.sqFtDetail, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_sqFtDetail', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.sqFtDetail
       });
     }
     if (quizAnswers.timeline && quizAnswers.timeline.trim() !== '') {
-      console.log('Adding quiz_timeline:', quizAnswers.timeline);
+      const fieldId = fieldIds.timeline || 'yx5b5WEtA980b0hl1jmL';
+      console.log('Adding quiz_timeline:', quizAnswers.timeline, 'with field ID:', fieldId);
       customFields.push({
-        id: 'yx5b5WEtA980b0hl1jmL', // KNOWN WORKING: timeline field ID from GHL
+        id: fieldId,
         value: quizAnswers.timeline
       });
     }
     if (quizAnswers.zip && quizAnswers.zip.trim() !== '') {
-      console.log('Adding quiz_zip:', quizAnswers.zip);
+      const fieldId = fieldIds.zip || 'quiz_zip';
+      console.log('Adding quiz_zip:', quizAnswers.zip, 'with field ID:', fieldId);
       customFields.push({
-        id: 'quiz_zip', // TODO: Replace with actual GHL field ID
+        id: fieldId,
         value: quizAnswers.zip
       });
     }
