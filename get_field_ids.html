@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Field IDs</title>
+</head>
+<body>
+    <h1>Getting Field IDs...</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function getFieldIds() {
+            const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
+            
+            try {
+                // Try to get the API token from the deployed app
+                const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer pit-c8aaff...', // This won't work, need full token
+                        'Version': '2021-07-28',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    document.getElementById('result').innerHTML = '<p>Error: ' + response.status + ' - ' + errorText + '</p>';
+                    return;
+                }
+
+                const data = await response.json();
+                console.log('Success! Custom Fields:', data);
+                
+                // Look for quiz-related fields
+                if (data.customFields) {
+                    const quizFields = data.customFields.filter(field => 
+                        field.name && field.name.toLowerCase().includes('quiz')
+                    );
+                    
+                    console.log('Quiz fields found:', quizFields);
+                    
+                    let html = '<h2>Quiz Fields Found:</h2><ul>';
+                    quizFields.forEach(field => {
+                        html += `<li><strong>${field.name}</strong> - ID: ${field.id} (Type: ${field.type})</li>`;
+                    });
+                    html += '</ul>';
+                    
+                    // Also look for fields that might be related to our quiz answers
+                    const potentialFields = data.customFields.filter(field => {
+                        const name = field.name.toLowerCase();
+                        return name.includes('bill') || 
+                               name.includes('lighting') || 
+                               name.includes('upgrade') || 
+                               name.includes('home') || 
+                               name.includes('size') || 
+                               name.includes('timeline') ||
+                               name.includes('zip');
+                    });
+                    
+                    html += '<h2>Potential Quiz Fields:</h2><ul>';
+                    potentialFields.forEach(field => {
+                        html += `<li><strong>${field.name}</strong> - ID: ${field.id} (Type: ${field.type})</li>`;
+                    });
+                    html += '</ul>';
+                    
+                    document.getElementById('result').innerHTML = html;
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<p>Error: ' + error.message + '</p>';
+            }
+        }
+        
+        getFieldIds();
+    </script>
+</body>
+</html>

@@ -79,7 +79,57 @@ if (typeof window !== 'undefined') {
   // Only run in browser environment
   setTimeout(() => {
     console.log('=== AUTO-FETCHING CUSTOM FIELD IDs ===');
-    getCustomFieldIds();
+    getCustomFieldIds().then(data => {
+      if (data && data.customFields) {
+        // Display field IDs in a more visible way
+        const quizFields = data.customFields.filter((field: any) => 
+          field.name && field.name.toLowerCase().includes('quiz')
+        );
+        
+        console.log('=== QUIZ FIELDS FOUND ===');
+        quizFields.forEach((field: any) => {
+          console.log(`Name: ${field.name} | ID: ${field.id} | Type: ${field.type}`);
+        });
+        
+        // Also look for fields that might be related to our quiz answers
+        const potentialFields = data.customFields.filter((field: any) => {
+          const name = field.name.toLowerCase();
+          return name.includes('bill') || 
+                 name.includes('lighting') || 
+                 name.includes('upgrade') || 
+                 name.includes('home') || 
+                 name.includes('size') || 
+                 name.includes('timeline') ||
+                 name.includes('zip');
+        });
+        
+        console.log('=== POTENTIAL QUIZ FIELDS ===');
+        potentialFields.forEach((field: any) => {
+          console.log(`Name: ${field.name} | ID: ${field.id} | Type: ${field.type}`);
+        });
+        
+        // Create a visible display on the page
+        const displayDiv = document.createElement('div');
+        displayDiv.style.cssText = 'position: fixed; top: 10px; right: 10px; background: #000; color: #fff; padding: 20px; z-index: 9999; max-width: 400px; font-family: monospace; font-size: 12px;';
+        displayDiv.innerHTML = '<h3>GHL Field IDs Found:</h3>';
+        
+        if (quizFields.length > 0) {
+          displayDiv.innerHTML += '<h4>Quiz Fields:</h4>';
+          quizFields.forEach((field: any) => {
+            displayDiv.innerHTML += `<div>${field.name}: ${field.id}</div>`;
+          });
+        }
+        
+        if (potentialFields.length > 0) {
+          displayDiv.innerHTML += '<h4>Potential Fields:</h4>';
+          potentialFields.forEach((field: any) => {
+            displayDiv.innerHTML += `<div>${field.name}: ${field.id}</div>`;
+          });
+        }
+        
+        document.body.appendChild(displayDiv);
+      }
+    });
   }, 1000);
 }
 
@@ -284,35 +334,35 @@ export function createContactData(
     if (quizAnswers.billRange && quizAnswers.billRange.trim() !== '') {
       console.log('Adding quiz_billRange:', quizAnswers.billRange);
       customFields.push({
-        id: 'quiz_billRange', // GHL custom field ID (lowercase)
+        id: 'quiz_billRange', // TODO: Replace with actual GHL field ID
         value: quizAnswers.billRange
       });
     }
     if (quizAnswers.currentLighting && quizAnswers.currentLighting.trim() !== '') {
       console.log('Adding quiz_currentLighting:', quizAnswers.currentLighting);
       customFields.push({
-        id: 'quiz_currentLighting', // GHL custom field ID (lowercase)
+        id: 'quiz_currentLighting', // TODO: Replace with actual GHL field ID
         value: quizAnswers.currentLighting
       });
     }
     if (quizAnswers.upgradeAreas && Array.isArray(quizAnswers.upgradeAreas) && quizAnswers.upgradeAreas.length > 0) {
       console.log('Adding quiz_upgradeAreas:', quizAnswers.upgradeAreas);
       customFields.push({
-        id: 'quiz_upgradeAreas', // GHL custom field ID (lowercase)
+        id: 'quiz_upgradeAreas', // TODO: Replace with actual GHL field ID
         value: quizAnswers.upgradeAreas.join(', ')
       });
     }
     if (quizAnswers.homeSize && quizAnswers.homeSize.trim() !== '') {
       console.log('Adding quiz_homeSize:', quizAnswers.homeSize);
       customFields.push({
-        id: 'quiz_homeSize', // GHL custom field ID (lowercase)
+        id: 'quiz_homeSize', // TODO: Replace with actual GHL field ID
         value: quizAnswers.homeSize
       });
     }
     if (quizAnswers.sqFtDetail && quizAnswers.sqFtDetail.trim() !== '') {
       console.log('Adding quiz_sqFtDetail:', quizAnswers.sqFtDetail);
       customFields.push({
-        id: 'quiz_sqFtDetail', // GHL custom field ID (lowercase)
+        id: 'quiz_sqFtDetail', // TODO: Replace with actual GHL field ID
         value: quizAnswers.sqFtDetail
       });
     }
@@ -326,7 +376,7 @@ export function createContactData(
     if (quizAnswers.zip && quizAnswers.zip.trim() !== '') {
       console.log('Adding quiz_zip:', quizAnswers.zip);
       customFields.push({
-        id: 'quiz_zip', // GHL custom field ID (lowercase)
+        id: 'quiz_zip', // TODO: Replace with actual GHL field ID
         value: quizAnswers.zip
       });
     }
