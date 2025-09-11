@@ -74,6 +74,15 @@ export async function getCustomFieldIds() {
   }
 }
 
+// Automatically fetch custom field IDs when this module loads
+if (typeof window !== 'undefined') {
+  // Only run in browser environment
+  setTimeout(() => {
+    console.log('=== AUTO-FETCHING CUSTOM FIELD IDs ===');
+    getCustomFieldIds();
+  }, 1000);
+}
+
 // You'll need to replace this with your actual GHL API token
 const GHL_API_TOKEN = import.meta.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
