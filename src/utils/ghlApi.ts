@@ -194,37 +194,37 @@ export function createContactData(
   if (quizAnswers) {
     if (quizAnswers.billRange) {
       customFields.push({
-        id: 'Quiz_billRange', // Matches your GHL custom field name
+        id: 'quiz_billRange', // GHL custom field ID (lowercase)
         value: quizAnswers.billRange
       });
     }
     if (quizAnswers.currentLighting) {
       customFields.push({
-        id: 'Quiz_currentLighting', // Matches your GHL custom field name
+        id: 'quiz_currentLighting', // GHL custom field ID (lowercase)
         value: quizAnswers.currentLighting
       });
     }
     if (quizAnswers.upgradeAreas && quizAnswers.upgradeAreas.length > 0) {
       customFields.push({
-        id: 'Quiz_upgradeAreas', // Matches your GHL custom field name
+        id: 'quiz_upgradeAreas', // GHL custom field ID (lowercase)
         value: quizAnswers.upgradeAreas.join(', ')
       });
     }
     if (quizAnswers.homeSize) {
       customFields.push({
-        id: 'Quiz_homeSize', // Matches your GHL custom field name
+        id: 'quiz_homeSize', // GHL custom field ID (lowercase)
         value: quizAnswers.homeSize
       });
     }
     if (quizAnswers.sqFtDetail) {
       customFields.push({
-        id: 'Quiz_sqFtDetail', // Matches your GHL custom field name
+        id: 'quiz_sqFtDetail', // GHL custom field ID (lowercase)
         value: quizAnswers.sqFtDetail
       });
     }
     if (quizAnswers.timeline) {
       customFields.push({
-        id: 'Quiz_timeline', // Matches your GHL custom field name
+        id: 'quiz_timeline', // GHL custom field ID (lowercase)
         value: quizAnswers.timeline
       });
     }
