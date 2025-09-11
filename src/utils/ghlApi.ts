@@ -194,37 +194,37 @@ export function createContactData(
   if (quizAnswers) {
     if (quizAnswers.billRange) {
       customFields.push({
-        id: 'quiz_billRange', // You'll need to create this custom field in GHL
+        id: 'Quiz_billRange', // Matches your GHL custom field name
         value: quizAnswers.billRange
       });
     }
     if (quizAnswers.currentLighting) {
       customFields.push({
-        id: 'quiz_currentLighting', // You'll need to create this custom field in GHL
+        id: 'Quiz_currentLighting', // Matches your GHL custom field name
         value: quizAnswers.currentLighting
       });
     }
     if (quizAnswers.upgradeAreas && quizAnswers.upgradeAreas.length > 0) {
       customFields.push({
-        id: 'quiz_upgradeAreas', // You'll need to create this custom field in GHL
+        id: 'Quiz_upgradeAreas', // Matches your GHL custom field name
         value: quizAnswers.upgradeAreas.join(', ')
       });
     }
     if (quizAnswers.homeSize) {
       customFields.push({
-        id: 'quiz_homeSize', // You'll need to create this custom field in GHL
+        id: 'Quiz_homeSize', // Matches your GHL custom field name
         value: quizAnswers.homeSize
       });
     }
     if (quizAnswers.sqFtDetail) {
       customFields.push({
-        id: 'quiz_sqFtDetail', // You'll need to create this custom field in GHL
+        id: 'Quiz_sqFtDetail', // Matches your GHL custom field name
         value: quizAnswers.sqFtDetail
       });
     }
     if (quizAnswers.timeline) {
       customFields.push({
-        id: 'quiz_timeline', // You'll need to create this custom field in GHL
+        id: 'Quiz_timeline', // Matches your GHL custom field name
         value: quizAnswers.timeline
       });
     }
