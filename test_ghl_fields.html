@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test GHL Custom Fields</title>
+</head>
+<body>
+    <h1>GHL Custom Fields Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function getCustomFields() {
+            const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
+            
+            try {
+                // This will use the same environment variables as the deployed app
+                const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer pit-c8aaff...', // This won't work, need full token
+                        'Version': '2021-07-28',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Custom Fields from GHL:', data);
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<p>Error: ' + error.message + '</p>';
+            }
+        }
+        
+        getCustomFields();
+    </script>
+</body>
+</html>

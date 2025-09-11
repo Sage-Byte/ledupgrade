@@ -9,6 +9,45 @@ export function getUrlParameter(paramName: string): string | null {
   return urlParams.get(paramName);
 }
 
+// Temporary function to get custom field IDs - call this from browser console
+export async function getCustomFieldIds() {
+  try {
+    const response = await fetch(`${GHL_API_BASE}/locations/${LOCATION_ID}/customFields`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${GHL_API_TOKEN}`,
+        'Version': GHL_API_VERSION,
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('All Custom Fields:', data);
+    
+    // Look for quiz-related fields
+    if (data.customFields) {
+      console.log('\n=== Quiz-related fields ===');
+      data.customFields.forEach((field: any) => {
+        if (field.name && field.name.toLowerCase().includes('quiz')) {
+          console.log(`Name: ${field.name}`);
+          console.log(`ID: ${field.id}`);
+          console.log(`Type: ${field.type}`);
+          console.log('---');
+        }
+      });
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching custom fields:', error);
+    return null;
+  }
+}
+
 // You'll need to replace this with your actual GHL API token
 const GHL_API_TOKEN = import.meta.env.VITE_GHL_API_TOKEN || 'YOUR_GHL_API_TOKEN';
 
@@ -188,10 +227,10 @@ export function createContactData(
     });
   }
 
-  // Add homeowner status
+  // Add homeowner status - USING KNOWN WORKING FIELD ID
   if (homeownerValue) {
     customFields.push({
-      id: 'homeowner', // You'll need to create this custom field in GHL
+      id: 'otZahDDkIXesHx8kySih', // KNOWN WORKING: homeowner field ID from GHL
       value: homeownerValue
     });
   }
@@ -245,7 +284,7 @@ export function createContactData(
     if (quizAnswers.timeline && quizAnswers.timeline.trim() !== '') {
       console.log('Adding quiz_timeline:', quizAnswers.timeline);
       customFields.push({
-        id: 'quiz_timeline', // GHL custom field ID (lowercase)
+        id: 'yx5b5WEtA980b0hl1jmL', // KNOWN WORKING: timeline field ID from GHL
         value: quizAnswers.timeline
       });
     }
