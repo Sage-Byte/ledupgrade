@@ -150,7 +150,9 @@ const LEDResults = () => {
 
       {lead && (
         <section id="calendar" className="container px-4 py-8 mb-16">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">Book Your Phone Consultation</h2>
+            <p className="text-muted-foreground mb-6">Choose a time that works for you. We'll call to review your results and next steps.</p>
             <iframe 
               src="https://link.wattleads.com/widget/booking/k7RqGxumfpwdIfSp4hYO" 
               style={{width: "100%", height: "700px", border:"none", overflow: "hidden"}} 
