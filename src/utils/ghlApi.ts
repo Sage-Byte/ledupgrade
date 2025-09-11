@@ -9,9 +9,13 @@ export function getUrlParameter(paramName: string): string | null {
   return urlParams.get(paramName);
 }
 
-// Temporary function to get custom field IDs - call this from browser console
+// Function to get custom field IDs - call this from browser console
 export async function getCustomFieldIds() {
   try {
+    console.log('Fetching custom fields from GHL...');
+    console.log('Using LOCATION_ID:', LOCATION_ID);
+    console.log('Using API_TOKEN:', GHL_API_TOKEN?.substring(0, 10) + '...');
+    
     const response = await fetch(`${GHL_API_BASE}/locations/${LOCATION_ID}/customFields`, {
       method: 'GET',
       headers: {
@@ -31,13 +35,35 @@ export async function getCustomFieldIds() {
     // Look for quiz-related fields
     if (data.customFields) {
       console.log('\n=== Quiz-related fields ===');
-      data.customFields.forEach((field: any) => {
-        if (field.name && field.name.toLowerCase().includes('quiz')) {
-          console.log(`Name: ${field.name}`);
-          console.log(`ID: ${field.id}`);
-          console.log(`Type: ${field.type}`);
-          console.log('---');
-        }
+      const quizFields = data.customFields.filter((field: any) => 
+        field.name && field.name.toLowerCase().includes('quiz')
+      );
+      
+      quizFields.forEach((field: any) => {
+        console.log(`Name: ${field.name}`);
+        console.log(`ID: ${field.id}`);
+        console.log(`Type: ${field.type}`);
+        console.log('---');
+      });
+      
+      // Also look for fields that might be related to our quiz answers
+      console.log('\n=== POTENTIAL QUIZ FIELDS (by name matching) ===');
+      const potentialFields = data.customFields.filter((field: any) => {
+        const name = field.name.toLowerCase();
+        return name.includes('bill') || 
+               name.includes('lighting') || 
+               name.includes('upgrade') || 
+               name.includes('home') || 
+               name.includes('size') || 
+               name.includes('timeline') ||
+               name.includes('zip');
+      });
+      
+      potentialFields.forEach((field: any) => {
+        console.log(`Name: ${field.name}`);
+        console.log(`ID: ${field.id}`);
+        console.log(`Type: ${field.type}`);
+        console.log('---');
       });
     }
     

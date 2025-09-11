@@ -14,6 +14,7 @@ import LEDResults from "./pages/LEDResults";
 import LeadForm from "./pages/LeadForm";
 import Loading from "./pages/Loading";
 import Results from "./pages/Results";
+import TestFields from "./pages/TestFields";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/loading" element={<Loading />} />
           <Route path="/results" element={<Results />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/test-fields" element={<TestFields />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

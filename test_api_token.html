@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Token</title>
+</head>
+<body>
+    <h1>Testing API Token</h1>
+    <div id="result"></div>
+    
+    <script>
+        // This will run in the browser with access to the deployed app's environment variables
+        console.log('Testing API token...');
+        
+        // Try to make a simple API call to get custom fields
+        async function testApiToken() {
+            const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
+            
+            try {
+                // This will use the same environment variables as the deployed app
+                const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer pit-c8aaff...', // This won't work, need full token
+                        'Version': '2021-07-28',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    document.getElementById('result').innerHTML = '<p>Error: ' + response.status + ' - ' + errorText + '</p>';
+                    return;
+                }
+
+                const data = await response.json();
+                console.log('Success! Custom Fields:', data);
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = '<p>Error: ' + error.message + '</p>';
+            }
+        }
+        
+        testApiToken();
+    </script>
+</body>
+</html>
