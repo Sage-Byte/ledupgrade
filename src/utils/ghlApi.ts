@@ -192,6 +192,10 @@ function updateFieldIds(quizFields: any[], potentialFields: any[]) {
 async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
   const LOCATION_ID = '3xmKQz6e0k6ij1aSfTFF';
   
+  console.log('=== STARTING FIELD ID FETCH ===');
+  console.log('Using LOCATION_ID:', LOCATION_ID);
+  console.log('Using API_TOKEN:', GHL_API_TOKEN?.substring(0, 10) + '...');
+  
   try {
     const response = await fetch(`https://services.leadconnectorhq.com/locations/${LOCATION_ID}/customFields`, {
       method: 'GET',
@@ -202,8 +206,13 @@ async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
       }
     });
 
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('HTTP error response:', errorText);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -213,6 +222,8 @@ async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
     const fieldMapping: { [key: string]: string } = {};
     
     if (data.customFields) {
+      console.log('Total custom fields found:', data.customFields.length);
+      
       // Look for quiz fields
       const quizFields = data.customFields.filter((field: any) => 
         field.name && field.name.toLowerCase().includes('quiz')
@@ -223,12 +234,31 @@ async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
       // Map quiz fields
       quizFields.forEach((field: any) => {
         const name = field.name.toLowerCase();
-        if (name.includes('bill')) fieldMapping['billRange'] = field.id;
-        if (name.includes('lighting')) fieldMapping['currentLighting'] = field.id;
-        if (name.includes('upgrade')) fieldMapping['upgradeAreas'] = field.id;
-        if (name.includes('home') && name.includes('size')) fieldMapping['homeSize'] = field.id;
-        if (name.includes('timeline')) fieldMapping['timeline'] = field.id;
-        if (name.includes('zip')) fieldMapping['zip'] = field.id;
+        console.log(`Processing quiz field: ${field.name} (${field.id})`);
+        if (name.includes('bill')) {
+          fieldMapping['billRange'] = field.id;
+          console.log('Mapped billRange to:', field.id);
+        }
+        if (name.includes('lighting')) {
+          fieldMapping['currentLighting'] = field.id;
+          console.log('Mapped currentLighting to:', field.id);
+        }
+        if (name.includes('upgrade')) {
+          fieldMapping['upgradeAreas'] = field.id;
+          console.log('Mapped upgradeAreas to:', field.id);
+        }
+        if (name.includes('home') && name.includes('size')) {
+          fieldMapping['homeSize'] = field.id;
+          console.log('Mapped homeSize to:', field.id);
+        }
+        if (name.includes('timeline')) {
+          fieldMapping['timeline'] = field.id;
+          console.log('Mapped timeline to:', field.id);
+        }
+        if (name.includes('zip')) {
+          fieldMapping['zip'] = field.id;
+          console.log('Mapped zip to:', field.id);
+        }
       });
       
       // Also look for potential fields
@@ -248,20 +278,45 @@ async function fetchFieldIdsFromGHL(): Promise<{ [key: string]: string }> {
       // Map potential fields
       potentialFields.forEach((field: any) => {
         const name = field.name.toLowerCase();
-        if (name.includes('bill') && !fieldMapping['billRange']) fieldMapping['billRange'] = field.id;
-        if (name.includes('lighting') && !fieldMapping['currentLighting']) fieldMapping['currentLighting'] = field.id;
-        if (name.includes('upgrade') && !fieldMapping['upgradeAreas']) fieldMapping['upgradeAreas'] = field.id;
-        if (name.includes('home') && name.includes('size') && !fieldMapping['homeSize']) fieldMapping['homeSize'] = field.id;
-        if (name.includes('timeline') && !fieldMapping['timeline']) fieldMapping['timeline'] = field.id;
-        if (name.includes('zip') && !fieldMapping['zip']) fieldMapping['zip'] = field.id;
+        console.log(`Processing potential field: ${field.name} (${field.id})`);
+        if (name.includes('bill') && !fieldMapping['billRange']) {
+          fieldMapping['billRange'] = field.id;
+          console.log('Mapped billRange to:', field.id);
+        }
+        if (name.includes('lighting') && !fieldMapping['currentLighting']) {
+          fieldMapping['currentLighting'] = field.id;
+          console.log('Mapped currentLighting to:', field.id);
+        }
+        if (name.includes('upgrade') && !fieldMapping['upgradeAreas']) {
+          fieldMapping['upgradeAreas'] = field.id;
+          console.log('Mapped upgradeAreas to:', field.id);
+        }
+        if (name.includes('home') && name.includes('size') && !fieldMapping['homeSize']) {
+          fieldMapping['homeSize'] = field.id;
+          console.log('Mapped homeSize to:', field.id);
+        }
+        if (name.includes('timeline') && !fieldMapping['timeline']) {
+          fieldMapping['timeline'] = field.id;
+          console.log('Mapped timeline to:', field.id);
+        }
+        if (name.includes('zip') && !fieldMapping['zip']) {
+          fieldMapping['zip'] = field.id;
+          console.log('Mapped zip to:', field.id);
+        }
       });
+    } else {
+      console.log('No customFields found in response');
     }
     
+    console.log('=== FINAL FIELD MAPPING ===');
     console.log('Field mapping created:', fieldMapping);
     return fieldMapping;
     
   } catch (error) {
-    console.error('Error fetching field IDs:', error);
+    console.error('=== ERROR FETCHING FIELD IDs ===');
+    console.error('Error details:', error);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
     return {};
   }
 }
