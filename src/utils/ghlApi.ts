@@ -198,42 +198,65 @@ export function createContactData(
 
   // Add quiz answers as custom fields
   if (quizAnswers) {
-    if (quizAnswers.billRange) {
+    console.log('=== Processing Quiz Answers ===');
+    console.log('quizAnswers.billRange:', quizAnswers.billRange, 'type:', typeof quizAnswers.billRange);
+    console.log('quizAnswers.currentLighting:', quizAnswers.currentLighting, 'type:', typeof quizAnswers.currentLighting);
+    console.log('quizAnswers.upgradeAreas:', quizAnswers.upgradeAreas, 'type:', typeof quizAnswers.upgradeAreas);
+    console.log('quizAnswers.homeSize:', quizAnswers.homeSize, 'type:', typeof quizAnswers.homeSize);
+    console.log('quizAnswers.sqFtDetail:', quizAnswers.sqFtDetail, 'type:', typeof quizAnswers.sqFtDetail);
+    console.log('quizAnswers.timeline:', quizAnswers.timeline, 'type:', typeof quizAnswers.timeline);
+    console.log('quizAnswers.zip:', quizAnswers.zip, 'type:', typeof quizAnswers.zip);
+    
+    if (quizAnswers.billRange && quizAnswers.billRange.trim() !== '') {
+      console.log('Adding quiz_billRange:', quizAnswers.billRange);
       customFields.push({
         id: 'quiz_billRange', // GHL custom field ID (lowercase)
         value: quizAnswers.billRange
       });
     }
-    if (quizAnswers.currentLighting) {
+    if (quizAnswers.currentLighting && quizAnswers.currentLighting.trim() !== '') {
+      console.log('Adding quiz_currentLighting:', quizAnswers.currentLighting);
       customFields.push({
         id: 'quiz_currentLighting', // GHL custom field ID (lowercase)
         value: quizAnswers.currentLighting
       });
     }
-    if (quizAnswers.upgradeAreas && quizAnswers.upgradeAreas.length > 0) {
+    if (quizAnswers.upgradeAreas && Array.isArray(quizAnswers.upgradeAreas) && quizAnswers.upgradeAreas.length > 0) {
+      console.log('Adding quiz_upgradeAreas:', quizAnswers.upgradeAreas);
       customFields.push({
         id: 'quiz_upgradeAreas', // GHL custom field ID (lowercase)
         value: quizAnswers.upgradeAreas.join(', ')
       });
     }
-    if (quizAnswers.homeSize) {
+    if (quizAnswers.homeSize && quizAnswers.homeSize.trim() !== '') {
+      console.log('Adding quiz_homeSize:', quizAnswers.homeSize);
       customFields.push({
         id: 'quiz_homeSize', // GHL custom field ID (lowercase)
         value: quizAnswers.homeSize
       });
     }
-    if (quizAnswers.sqFtDetail) {
+    if (quizAnswers.sqFtDetail && quizAnswers.sqFtDetail.trim() !== '') {
+      console.log('Adding quiz_sqFtDetail:', quizAnswers.sqFtDetail);
       customFields.push({
         id: 'quiz_sqFtDetail', // GHL custom field ID (lowercase)
         value: quizAnswers.sqFtDetail
       });
     }
-    if (quizAnswers.timeline) {
+    if (quizAnswers.timeline && quizAnswers.timeline.trim() !== '') {
+      console.log('Adding quiz_timeline:', quizAnswers.timeline);
       customFields.push({
         id: 'quiz_timeline', // GHL custom field ID (lowercase)
         value: quizAnswers.timeline
       });
     }
+    if (quizAnswers.zip && quizAnswers.zip.trim() !== '') {
+      console.log('Adding quiz_zip:', quizAnswers.zip);
+      customFields.push({
+        id: 'quiz_zip', // GHL custom field ID (lowercase)
+        value: quizAnswers.zip
+      });
+    }
+    console.log('=== End Quiz Answers Processing ===');
   }
 
   const contactData = {
