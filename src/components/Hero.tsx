@@ -40,22 +40,22 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
   const progress = Math.round((step / totalSteps) * 100);
 
   return (
-    <header className="relative overflow-hidden bg-purple-600">
-      <div className="bg-purple-600">
-        <div className="container px-4 py-12 sm:py-16 md:py-20 text-white">
+    <header className="relative overflow-hidden bg-white">
+      <div className="bg-white">
+        <div className="container px-4 py-12 sm:py-16 md:py-20 text-foreground">
           <div className="max-w-3xl mx-auto">
             <div className="flex justify-center mb-3">
-              <span className="inline-flex items-center gap-2 rounded-full bg-purple-500 text-white px-3 py-1 text-xs sm:text-sm">
+              <span className="inline-flex items-center gap-2 rounded-full bg-success/15 text-success px-3 py-1 text-xs sm:text-sm">
                 <span aria-hidden>✨</span> LED Savings Calculator
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center">
               LED Upgrade Savings — Calculate Your Annual Savings
             </h1>
-            <p className="mt-3 text-base sm:text-lg md:text-xl text-center text-white opacity-90">
+            <p className="mt-3 text-base sm:text-lg md:text-xl text-center opacity-90">
               Take our <strong>FREE 60‑second LED quiz</strong> to calculate how much professional LED upgrades could save you each year — customized for your home.
             </p>
-            <div className="mt-4 flex items-center justify-center gap-3 text-white opacity-80">
+            <div className="mt-4 flex items-center justify-center gap-3 text-muted-foreground">
               <div className="flex gap-1 text-lg" aria-label="4.9 out of 5 stars">
                 <span>⭐️</span><span>⭐️</span><span>⭐️</span><span>⭐️</span><span>⭐️</span>
               </div>
@@ -63,16 +63,16 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
             </div>
             <div
               ref={sectionRef}
-              className="mx-auto max-w-2xl rounded-2xl bg-white text-gray-900 shadow-lg border border-white/10 overflow-hidden focus:outline-none"
+              className="mx-auto max-w-2xl rounded-2xl bg-card text-foreground shadow-lg border border-white/10 overflow-hidden focus:outline-none"
             >
-              <div className="bg-green-100 text-green-800 px-4 py-2 text-sm flex items-center justify-between">
+              <div className="bg-success/15 text-success px-4 py-2 text-sm flex items-center justify-between">
                 <span>Columbus homeowners save $800+ annually with professional LED upgrades</span>
                 <span aria-hidden>→</span>
               </div>
               <div className="p-5 sm:p-7">
                 <fieldset>
-                  <legend className="text-2xl sm:text-3xl font-semibold text-center mb-2 text-gray-900">💡 Are you a homeowner?</legend>
-                  <p className="text-center text-gray-600 mb-4">LED upgrades provide maximum value for property owners</p>
+                  <legend className="text-2xl sm:text-3xl font-semibold text-center mb-2">💡 Are you a homeowner?</legend>
+                  <p className="text-center text-muted-foreground mb-4">LED upgrades provide maximum value for property owners</p>
 
                   <div className="space-y-3">
                     <button
@@ -101,7 +101,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
                     </Button>
                   </div>
 
-                  <p className="mt-3 text-center text-xs text-gray-500">
+                  <p className="mt-3 text-center text-xs text-muted-foreground">
                     ✅ Personalized recommendations • ✅ Instant results • ✅ 100% Free
                   </p>
                 </fieldset>
@@ -111,7 +111,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
               {VALUE_CHIPS.map((chip) => (
                 <li
                   key={chip}
-                  className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs sm:text-sm text-white"
+                  className="rounded-full border border-border bg-muted px-3 py-1 text-xs sm:text-sm text-foreground"
                 >
                   {chip}
                 </li>
