@@ -42,7 +42,7 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
   return (
     <header className="relative overflow-hidden bg-white pt-20 sm:pt-24">
       <div className="bg-white">
-        <div className="container px-4 py-16 sm:py-20 md:py-24 text-foreground">
+        <div className="container px-4 py-4 sm:py-6 md:py-8 text-foreground">
           <div className="max-w-3xl mx-auto">
             <div className="flex justify-center mb-4 mt-1">
               <span className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-base font-medium shadow-md" style={{backgroundColor: '#e2f6ec', color: '#000000'}}>
