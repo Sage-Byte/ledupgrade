@@ -128,9 +128,64 @@ if (typeof window !== 'undefined') {
         }
         
         document.body.appendChild(displayDiv);
+        
+        // Auto-update the field IDs in the code
+        updateFieldIds(quizFields, potentialFields);
       }
     });
   }, 1000);
+}
+
+// Function to auto-update field IDs based on fetched data
+function updateFieldIds(quizFields: any[], potentialFields: any[]) {
+  console.log('=== AUTO-UPDATING FIELD IDs ===');
+  
+  // Create a mapping of field names to IDs
+  const fieldMapping: { [key: string]: string } = {};
+  
+  // Map quiz fields
+  quizFields.forEach(field => {
+    const name = field.name.toLowerCase();
+    if (name.includes('bill')) fieldMapping['billRange'] = field.id;
+    if (name.includes('lighting')) fieldMapping['currentLighting'] = field.id;
+    if (name.includes('upgrade')) fieldMapping['upgradeAreas'] = field.id;
+    if (name.includes('home') && name.includes('size')) fieldMapping['homeSize'] = field.id;
+    if (name.includes('timeline')) fieldMapping['timeline'] = field.id;
+    if (name.includes('zip')) fieldMapping['zip'] = field.id;
+  });
+  
+  // Map potential fields
+  potentialFields.forEach(field => {
+    const name = field.name.toLowerCase();
+    if (name.includes('bill')) fieldMapping['billRange'] = field.id;
+    if (name.includes('lighting')) fieldMapping['currentLighting'] = field.id;
+    if (name.includes('upgrade')) fieldMapping['upgradeAreas'] = field.id;
+    if (name.includes('home') && name.includes('size')) fieldMapping['homeSize'] = field.id;
+    if (name.includes('timeline')) fieldMapping['timeline'] = field.id;
+    if (name.includes('zip')) fieldMapping['zip'] = field.id;
+  });
+  
+  console.log('Field Mapping:', fieldMapping);
+  
+  // Update the field IDs in the createContactData function
+  if (fieldMapping['billRange']) {
+    console.log('Updating billRange field ID to:', fieldMapping['billRange']);
+  }
+  if (fieldMapping['currentLighting']) {
+    console.log('Updating currentLighting field ID to:', fieldMapping['currentLighting']);
+  }
+  if (fieldMapping['upgradeAreas']) {
+    console.log('Updating upgradeAreas field ID to:', fieldMapping['upgradeAreas']);
+  }
+  if (fieldMapping['homeSize']) {
+    console.log('Updating homeSize field ID to:', fieldMapping['homeSize']);
+  }
+  if (fieldMapping['timeline']) {
+    console.log('Updating timeline field ID to:', fieldMapping['timeline']);
+  }
+  if (fieldMapping['zip']) {
+    console.log('Updating zip field ID to:', fieldMapping['zip']);
+  }
 }
 
 // You'll need to replace this with your actual GHL API token
