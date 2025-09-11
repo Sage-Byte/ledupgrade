@@ -40,11 +40,11 @@ const Hero = ({ age, setAge, onStartQuiz, onContinue, step, totalSteps }: HeroPr
   const progress = Math.round((step / totalSteps) * 100);
 
   return (
-    <header className="relative overflow-hidden bg-white">
+    <header className="relative overflow-hidden bg-white pt-20 sm:pt-24">
       <div className="bg-white">
-        <div className="container px-4 py-12 sm:py-16 md:py-20 text-foreground">
+        <div className="container px-4 py-16 sm:py-20 md:py-24 text-foreground">
           <div className="max-w-3xl mx-auto">
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-8 mt-4">
               <span className="inline-flex items-center gap-3 rounded-lg px-8 py-4 text-lg font-semibold shadow-lg" style={{backgroundColor: '#e2f6ec', color: '#000000'}}>
                 <span aria-hidden>✨</span> LED Savings Calculator
               </span>
