@@ -3,7 +3,7 @@ import electricMedicLogo from "@/assets/electric-medic-logo.webp";
 
 export default function SiteHeader() {
   return (
-    <header className="absolute inset-x-0 top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border">
+    <header className="absolute inset-x-0 top-0 z-40 bg-white/95 backdrop-blur-sm">
       <nav className="container flex items-center justify-center px-4 py-4 mb-4" aria-label="Main">
         <a href="/" className="inline-flex items-center gap-2" aria-label="Electric Medic home">
           <img
