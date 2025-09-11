@@ -168,6 +168,12 @@ export function createContactData(
   homeownerValue?: string,
   adId?: string
 ): GHLContactData {
+  console.log('=== createContactData Debug ===');
+  console.log('formData:', formData);
+  console.log('quizAnswers:', quizAnswers);
+  console.log('homeownerValue:', homeownerValue);
+  console.log('adId:', adId);
+  
   const [firstName, ...lastNameParts] = formData.name.trim().split(' ');
   const lastName = lastNameParts.join(' ') || '';
 
@@ -230,7 +236,7 @@ export function createContactData(
     }
   }
 
-  return {
+  const contactData = {
     locationId: LOCATION_ID,
     firstName,
     lastName,
@@ -242,6 +248,13 @@ export function createContactData(
     country: 'US', // Assuming US based on the context
     customFields: customFields.length > 0 ? customFields : undefined,
   };
+  
+  console.log('=== Final Contact Data ===');
+  console.log('customFields created:', customFields);
+  console.log('contactData.customFields:', contactData.customFields);
+  console.log('=== End Debug ===');
+  
+  return contactData;
 }
 
 // Helper function to create opportunity data
